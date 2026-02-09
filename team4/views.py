@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.db.models import Q
 from rest_framework import viewsets, status
 from rest_framework.decorators import action, api_view
 from rest_framework.response import Response
@@ -8,12 +9,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from .fields import Point
 
 from core.auth import api_login_required
-from team4.models import Facility, Category, City, Amenity
+from team4.models import Facility, Category, City, Amenity, Province, Village, RegionType
 from team4.serializers import (
     FacilityListSerializer, FacilityDetailSerializer,
     FacilityNearbySerializer, FacilityComparisonSerializer,
     CategorySerializer, CitySerializer, AmenitySerializer,
-    FacilityCreateSerializer
+    FacilityCreateSerializer, RegionSearchResultSerializer
 )
 from team4.services.facility_service import FacilityService
 
@@ -230,3 +231,101 @@ def ping(request):
 
 def base(request):
     return render(request, f"{TEAM_NAME}/index.html")
+
+
+# =====================================================
+# Region Search API
+# =====================================================
+
+@api_view(['GET'])
+def search_regions(request):
+    """
+    جستجوی مناطق (استان، شهر، روستا)
+    
+    Query Parameters:
+    - query: متن جستجو (الزامی)
+    - region_type: نوع منطقه - province, city, village (اختیاری)
+    
+    Response:
+    {
+        "regions": [
+            {
+                "id": "string",
+                "name": "string",
+                "parent_region_id": "string",
+                "parent_region_name": "string"
+            }
+        ]
+    }
+    """
+    query = request.query_params.get('query', '').strip()
+    region_type = request.query_params.get('region_type', '').strip().lower()
+    
+    if not query:
+        return Response(
+            {'error': 'پارامتر query الزامی است'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # اعتبارسنجی region_type
+    valid_types = ['province', 'city', 'village', '']
+    if region_type and region_type not in valid_types:
+        return Response(
+            {'error': f'region_type باید یکی از مقادیر {valid_types[:-1]} باشد'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    results = []
+    
+    # جستجو در استان‌ها
+    if not region_type or region_type == 'province':
+        provinces = Province.objects.filter(
+            Q(name_fa__icontains=query) | 
+            Q(name_en__icontains=query)
+        )
+        
+        for province in provinces:
+            results.append({
+                'id': str(province.province_id),
+                'name': province.name_fa,
+                'parent_region_id': None,
+                'parent_region_name': None
+            })
+    
+    # جستجو در شهرها
+    if not region_type or region_type == 'city':
+        cities = City.objects.select_related('province').filter(
+            Q(name_fa__icontains=query) | 
+            Q(name_en__icontains=query)
+        )
+        
+        for city in cities:
+            results.append({
+                'id': str(city.city_id),
+                'name': city.name_fa,
+                'parent_region_id': str(city.province.province_id),
+                'parent_region_name': city.province.name_fa
+            })
+    
+    # جستجو در روستاها
+    if not region_type or region_type == 'village':
+        villages = Village.objects.select_related('city', 'city__province').filter(
+            Q(name_fa__icontains=query) | 
+            Q(name_en__icontains=query)
+        )
+        
+        for village in villages:
+            results.append({
+                'id': str(village.village_id),
+                'name': village.name_fa,
+                'parent_region_id': str(village.city.city_id),
+                'parent_region_name': village.city.name_fa
+            })
+    
+    # سریالایز نتایج
+    serializer = RegionSearchResultSerializer(results, many=True)
+    
+    return Response({
+        'count': len(results),
+        'regions': serializer.data
+    })

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .fields import Point
 from team4.models import (
-    Province, City, Category, Amenity,
+    Province, City, Category, Amenity, Village,
     Facility, FacilityAmenity, Pricing, Image
 )
 
@@ -202,3 +202,36 @@ class FacilityCreateSerializer(serializers.ModelSerializer):
                     pass
         
         return facility
+
+
+# =====================================================
+# Region Search Serializers
+# =====================================================
+
+class VillageSerializer(serializers.ModelSerializer):
+    city = CitySerializer(read_only=True)
+    location = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Village
+        fields = [
+            'village_id', 'name_fa', 'name_en',
+            'city', 'location'
+        ]
+    
+    def get_location(self, obj):
+        if obj.location:
+            return {
+                'type': 'Point',
+                'coordinates': [float(obj.longitude), float(obj.latitude)]
+            }
+        return None
+
+
+class RegionSearchResultSerializer(serializers.Serializer):
+    """سریالایزر برای نتایج جستجوی مناطق"""
+    id = serializers.CharField()
+    name = serializers.CharField()
+    parent_region_id = serializers.CharField(allow_null=True)
+    parent_region_name = serializers.CharField(allow_null=True)
+

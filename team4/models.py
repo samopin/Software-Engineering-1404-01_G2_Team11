@@ -5,6 +5,13 @@ from .fields import PointField, Point
 import math
 
 
+# RegionType Enum
+class RegionType(models.TextChoices):
+    PROVINCE = 'province', 'استان'
+    CITY = 'city', 'شهر'
+    VILLAGE = 'village', 'روستا'
+
+
 
 class Province(models.Model):
     province_id = models.AutoField(primary_key=True)
@@ -68,6 +75,47 @@ class City(models.Model):
 
     def __str__(self):
         return f"{self.name_fa} ({self.province.name_fa})"
+
+    def get_coordinates(self):
+        if self.location:
+            return (self.location.longitude, self.location.latitude)
+        return None
+    
+    @property
+    def latitude(self):
+        return self.location.latitude if self.location else None
+    
+    @property
+    def longitude(self):
+        return self.location.longitude if self.location else None
+
+
+class Village(models.Model):
+    village_id = models.AutoField(primary_key=True)
+    city = models.ForeignKey(
+        City,
+        on_delete=models.CASCADE,
+        related_name='villages',
+        verbose_name="شهر"
+    )
+    name_fa = models.CharField(max_length=100, verbose_name="نام فارسی")
+    name_en = models.CharField(max_length=100, verbose_name="نام انگلیسی")
+    location = PointField(null=True, blank=True, verbose_name="موقعیت جغرافیایی")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'facilities_village'
+        verbose_name = "روستا"
+        verbose_name_plural = "روستاها"
+        unique_together = [['city', 'name_en']]
+        indexes = [
+            models.Index(fields=['city'], name='idx_village_city'),
+            models.Index(fields=['name_en'], name='idx_village_name_en'),
+        ]
+
+    def __str__(self):
+        return f"{self.name_fa} ({self.city.name_fa})"
 
     def get_coordinates(self):
         if self.location:

@@ -16,4 +16,5 @@ urlpatterns = [
     
     # API Routes
     path("api/", include(router.urls)),
+    path("api/regions/search/", views.search_regions, name='search-regions'),
 ]
