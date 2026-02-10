@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import RecommendationAPIView, FeedbackAPIView
 
 urlpatterns = [
-    path("", views.base),
-    path("ping/", views.ping),
+    path('recommendations/', RecommendationAPIView.as_view(), name='get_recommendations'), # POST/GET recommendations [cite: 194]
+    path('feedback/', FeedbackAPIView.as_view(), name='post_feedback'), # Feedback endpoint [cite: 223]
 ]
