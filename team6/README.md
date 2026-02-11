@@ -122,6 +122,17 @@ Key routes:
 
 ## Database
 
+The Wiki Service relies on Django's ORM for data modeling and persistence.
+
+All core entities — including articles, categories, tags, revisions,
+references, reports, follows, and notifications — are defined as
+structured Django models within the Team6 application.
+
+During development, the service operates using the project's default
+database configuration.
+
+Database schema changes are managed through Django migrations
+located in the `migrations/` directory.
 ## Features
 
 ## Integration with Core
