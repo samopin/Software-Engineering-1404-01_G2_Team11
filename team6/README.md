@@ -99,6 +99,27 @@ Note: The Wiki application itself runs inside the Core container and is mounted 
 
 ## URL Structure
 
+The Wiki Service is mounted under:
+
+- `/team6/`
+
+Key routes:
+
+- `GET /team6/` — Article list (home page)
+- `GET /team6/ping/` — Health check
+- `GET /team6/create/` — Create new article
+- `GET /team6/article/<slug>/` — Article details
+- `GET /team6/article/<slug>/edit/` — Edit an article
+- `GET /team6/article/<slug>/delete/` — Delete an article
+- `GET /team6/article/<slug>/revisions/` — List article revisions
+- `GET /team6/article/<slug>/revisions/<revision_no>/` — View a specific revision
+- `GET /team6/article/<slug>/report/` — Report an article
+- `GET /team6/article/<slug>/follow/` — Follow/unfollow an article
+- `GET /team6/article/<slug>/toggle-notify/` — Toggle notifications for an article
+- `GET /team6/notifications/` — Notifications list
+- `POST /team6/api/wiki/content` — External API to fetch wiki content
+- `POST /team6/api/preview-ai/` — Preview generated content
+
 ## Database
 
 ## Features
