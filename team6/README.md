@@ -172,6 +172,22 @@ located in the `migrations/` directory.
 
 ---
 
+## Core Data Models
+
+| Model | Description |
+|-------|------------|
+| WikiCategory | Hierarchical article categorization |
+| WikiTag | Tagging system with relational support |
+| WikiArticle | Main article entity |
+| WikiArticleRevision | Revision history tracking |
+| WikiArticleLink | Internal article linking |
+| WikiArticleRef | External reference management |
+| WikiArticleReports | Article reporting mechanism |
+| ArticleFollow | User follow system |
+| ArticleNotification | Notification management |
+
+---
+
 ## Features
 
 The Wiki Service provides a comprehensive set of features for structured article management:
