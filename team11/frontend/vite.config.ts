@@ -4,14 +4,14 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  base: '/team11/', // Assets will now be linked as /team11/assets/...
+  plugins: [react(), tailwindcss(), ],
   server: {
     port: 3005,
     host: true,
-    strictPort: true,
-    hmr: {
-      clientPort: 3005, // Forces the browser to look for HMR on the correct port
-    },
+    // This allows you to visit localhost:3005 and redirected to /team11/
+    open: '/team11/', 
+
     // Add this to allow the browser to talk to Vite across different "origins"
     cors: true, 
     proxy: {
