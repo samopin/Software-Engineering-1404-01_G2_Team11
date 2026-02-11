@@ -63,19 +63,19 @@ class MockWikiClient(WikiServicePort):
     _MOCK_DATA: Dict[str, DestinationInfo] = {
         "Tehran": DestinationInfo(
             name="Tehran",
-            description="Tehran is the capital city of Iran and its main political and economic center.",
+            description="تهران پایتخت ایران است و مرکز اصلی سیاسی و اقتصادی کشور محسوب می‌شود.",
             country="Iran",
             region="Tehran Province",
         ),
         "Shiraz": DestinationInfo(
             name="Shiraz",
-            description="Shiraz is known for Persian poetry, gardens, and rich cultural heritage.",
+            description="شیراز به شعر فارسی، باغ‌ها و میراث فرهنگی غنی‌اش شناخته می‌شود.",
             country="Iran",
             region="Fars Province",
         ),
         "Isfahan": DestinationInfo(
             name="Isfahan",
-            description="Isfahan is famous for its Safavid-era architecture and historic squares.",
+            description="اصفهان به معماری دوره صفوی و میدان‌ها و بناهای تاریخی‌اش مشهور است.",
             country="Iran",
             region="Isfahan Province",
         ),
@@ -86,7 +86,7 @@ class MockWikiClient(WikiServicePort):
         if not normalized_name:
             return DestinationInfo(
                 name="Unknown",
-                description="Mock default: no destination provided.",
+                description="پیش‌فرض ماک: مقصدی وارد نشده است.",
                 country="Unknown",
                 region="Unknown",
             )
@@ -96,7 +96,7 @@ class MockWikiClient(WikiServicePort):
 
         return DestinationInfo(
             name=normalized_name,
-            description=f"Mock default info for {normalized_name}.",
+            description=f"اطلاعات پیش‌فرض ماک برای {normalized_name}.",
             country="Unknown",
             region="Unknown",
         )

@@ -949,36 +949,24 @@ body {
 /* PATCH: remove top white strip on Team10 pages */
 html,
 body {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-body {
-    background-color: var(--bg-light);
+  margin: 0;
+  padding: 0;
 }
 
 .main-header {
-    margin-top: 0 !important;
-    top: 0;
-}
-
-.main-header{
-  box-shadow: none !important;
-}
-
-.team10-main{ display: flow-root; }
-.t10-home-hero{ margin-top: -1px; }
-
-.main-header{
   position: sticky;
   top: 0;
-  z-index: 1000;
 }
 
-.bg-pattern{
+/* Draw a tiny fixed band over the viewport top to hide browser seam artifacts */
+body::before {
+  content: "";
+  position: fixed;
   top: 0;
+  right: 0;
   left: 0;
-  z-index: -1;
+  height: 28px;
+  background: linear-gradient(135deg, var(--forest-green), var(--persian-blue));
+  z-index: 999;
+  pointer-events: none;
 }
-
-.bg-pattern{ opacity: 0 !important; }
