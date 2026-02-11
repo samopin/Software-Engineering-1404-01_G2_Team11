@@ -1,0 +1,26 @@
+{% extends "team10/base.html" %}
+{% block title %}سبک‌ها{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h2>سبک‌های سفر</h2>
+        <p>انتخاب سبک‌های مورد علاقه، طبیعت، فرهنگ و غذا</p>
+    </div>
+
+    <div class="placeholder-section">
+        <div class="placeholder-icon">
+            <i class="fa-solid fa-palette"></i>
+        </div>
+        <div class="placeholder-text">
+            <h3>انتخاب سبک‌ها</h3>
+            <p>لیست سبک‌ها برای نمایش و بهرهبري بعداً اضافه خواهد شد.</p>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="/team10/trips/{{ trip_id }}/" class="btn btn-secondary">
+            <i class="fa-solid fa-arrow-left"></i>
+            بازگشت
+        </a>
+    </div>
+{% endblock %}

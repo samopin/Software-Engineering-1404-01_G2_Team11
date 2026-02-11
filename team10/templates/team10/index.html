@@ -1,24 +1,41 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group 9 - Map Service</title>
-    <link rel="stylesheet" href="{% static 'team10/styles/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-</head>
-<body>
-    <h1>Map Service</h1>
-    <h3>پیاده‌سازی توسط گروه 9</h3>
-    <hr style="width: 50%; margin: 20px auto; opacity: 0.3;">
-    
-    <div style="border: 2px dashed #ccc; padding: 50px; border-radius: 10px; margin: 20px 0;">
-        <p>محل قرارگیری رابط کاربری میکرو سرویس</p>
-        <p>(Microservice UI Placeholder)</p>
+{% extends "team10/base.html" %}
+{% block title %}داشبورد | تیم ۱۰{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="hero-content">
+            <h2>سفرهای شما</h2>
+            <p>سفر جدید بسازید یا وارد لیست سفرها شوید.</p>
+        </div>
+    </section>
+
+    <div class="section-header">
+        <h3>عملیات سریع</h3>
     </div>
 
-    <a href="/" class="back-btn"> بازگشت به داشبورد اصلی</a>
-    
-</body>
-</html>
+    <div class="services-grid">
+        <a class="service-card" href="/team10/create/">
+            <div class="card-content-wrapper">
+                <div class="card-icon">
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="card-info">
+                    <h3>ایجاد سفر جدید</h3>
+                    <span>با وارد کردن مبدأ، مقصد، تاریخ و مدت سفر.</span>
+                </div>
+            </div>
+        </a>
+
+        <a class="service-card" href="/team10/trips/">
+            <div class="card-content-wrapper">
+                <div class="card-icon">
+                    <i class="fa-solid fa-suitcase"></i>
+                </div>
+                <div class="card-info">
+                    <h3>سفرهای من</h3>
+                    <span>لیست سفرها و ورود به جزئیات هر سفر.</span>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endblock %}

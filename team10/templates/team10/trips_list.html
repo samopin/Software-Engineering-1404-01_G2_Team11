@@ -1,0 +1,76 @@
+{% extends "team10/base.html" %}
+{% block title %}سفرهای من{% endblock %}
+
+{% block content %}
+    <div class="page-header">
+        <h2>سفرهای من</h2>
+    </div>
+
+    {% if trips %}
+        <div class="trips-table">
+            {% for trip in trips %}
+                <div class="trip-row">
+                    <div class="trip-header">
+                        <h3>{{ trip.destination_name }}</h3>
+                        {% if trip.origin_name %}
+                            <p class="trip-origin">مبدأ: {{ trip.origin_name }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="trip-details">
+                        <div class="detail-item">
+                            <span class="label">شروع:</span>
+                            <span class="value">{% if trip.start_at %}{{ trip.start_at }}{% else %}—{% endif %}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">مدت:</span>
+                            <span class="value">{{ trip.days }} روز</span>
+                        </div>
+                        {% if trip.total_cost %}
+                            <div class="detail-item">
+                                <span class="label">هزینه:</span>
+                                <span class="value">{{ trip.total_cost }}</span>
+                            </div>
+                        {% endif %}
+                        {% if trip.budget %}
+                            <div class="detail-item">
+                                <span class="label">بودجه:</span>
+                                <span class="value">{{ trip.budget }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="trip-status">
+                        <span class="badge badge-{{ trip.status }}">
+                            {{ trip.get_status_display }}
+                        </span>
+                    </div>
+                    <div class="trip-actions">
+                        <a class="btn btn-small" href="/team10/trips/{{ trip.id }}/">
+                            <i class="fa-solid fa-eye"></i>
+                            جزئیات
+                        </a>
+                        <a class="btn btn-small" href="/team10/trips/{{ trip.id }}/cost/">
+                            <i class="fa-solid fa-calculator"></i>
+                            هزینه
+                        </a>
+                        <a class="btn btn-small" href="/team10/trips/{{ trip.id }}/styles/">
+                            <i class="fa-solid fa-palette"></i>
+                            سبک‌ها
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <div class="empty-icon">
+                <i class="fa-solid fa-inbox"></i>
+            </div>
+            <div class="empty-title">چیزی برای نمایش نیست</div>
+            <p>اگر DB هنوز migrate نشده، اول migrate کنید یا از خانه سفر بسازید.</p>
+            <a class="btn btn-primary" href="/team10/create/">
+                <i class="fa-solid fa-plus"></i>
+                سفر اول را بسازید
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
