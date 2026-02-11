@@ -15,6 +15,8 @@
 - [Integration with Core](#integration-with-core)
 - [Notes for Developers](#notes-for-developers)
 
+---
+
 ## Overview
 
 The Wiki Service, developed by Team NullTerminated, is a structured
@@ -127,6 +129,8 @@ http://localhost:9126/
 
 Note: The Wiki application itself runs inside the Core container and is mounted under the `/team6/` route.
 
+---
+
 ## URL Structure
 
 The Wiki Service is mounted under:
@@ -150,6 +154,8 @@ Key routes:
 - `POST /team6/api/wiki/content` — External API to fetch wiki content
 - `POST /team6/api/preview-ai/` — Preview generated content
 
+---
+
 ## Database
 
 The Wiki Service relies on Django's ORM for data modeling and persistence.
@@ -163,6 +169,8 @@ database configuration.
 
 Database schema changes are managed through Django migrations
 located in the `migrations/` directory.
+
+---
 
 ## Features
 
@@ -198,6 +206,7 @@ The Wiki Service provides a comprehensive set of features for structured article
 - External content API access
 - Preview endpoint for assisted content generation
 
+---
 
 ## Integration with Core
 
@@ -213,6 +222,8 @@ which mounts the Wiki Service under the `/team6/` namespace.
 The service operates as a modular Django application
 while sharing the same runtime environment and infrastructure
 as the rest of the system.
+
+---
 
 ## Notes for Developers
 
