@@ -41,8 +41,5 @@ urlpatterns = [
     path("api/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]
 
-
 for app in settings.TEAM_APPS:
     urlpatterns.append(path(f"{app}/", include(f"{app}.urls")))
-
-
