@@ -922,6 +922,11 @@ class TripPlanningServiceImpl(TripPlanningService):
         for trip in trips:
             req = trip.requirements
             days = (req.end_at - req.start_at).days if req.end_at and req.start_at else 0
+            display_status, display_status_label_fa = self._compute_display_status(
+                req.start_at,
+                req.end_at,
+                trip.status
+            )
             
             result.append({
                 'id': trip.id,
@@ -932,10 +937,42 @@ class TripPlanningServiceImpl(TripPlanningService):
                 'travelers_count': req.travelers_count,
                 'total_cost': trip.calculate_total_cost(),
                 'status': trip.status,
+                'display_status': display_status,
+                'display_status_label_fa': display_status_label_fa,
                 'created_at': trip.created_at,
             })
         
         return result
+
+    def _compute_display_status(
+        self,
+        req_start_at: Optional[datetime],
+        req_end_at: Optional[datetime],
+        stored_status: str
+    ) -> Tuple[str, str]:
+        """Compute display status based on requirements dates, with fallback to stored status."""
+        status_labels_fa = {
+            'DRAFT': 'پیش‌نویس',
+            'IN_PROGRESS': 'در حال اجرا',
+            'COMPLETED': 'پایان‌یافته',
+            'CONFIRMED': 'تأیید‌شده',
+            'CANCELLED': 'لغو‌شده',
+            'EXPIRED': 'منقضی‌شده',
+            'NEEDS_REGENERATION': 'نیاز به بازتولید',
+        }
+
+        if not req_start_at or not req_end_at:
+            return stored_status, status_labels_fa.get(stored_status, 'نامشخص')
+
+        today = datetime.now().date()
+        start_date = req_start_at.date()
+        end_date = req_end_at.date()
+
+        if start_date > today:
+            return 'DRAFT', status_labels_fa['DRAFT']
+        if start_date <= today < end_date:
+            return 'IN_PROGRESS', status_labels_fa['IN_PROGRESS']
+        return 'COMPLETED', status_labels_fa['COMPLETED']
 
     def _get_preference_description(self, preference_tag: str) -> str:
         """Get description for preference tag (canonical styles)."""
