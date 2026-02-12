@@ -1,4 +1,5 @@
 from datetime import date, datetime, timedelta
+from functools import wraps
 
 import jdatetime
 from django.db.utils import OperationalError
@@ -9,6 +10,16 @@ from django.urls import reverse
 from core.auth import api_login_required
 from .models import Trip, TripRequirements, PreferenceConstraint, TransferPlan
 from .services import trip_planning_service
+
+
+def team10_login_required(view_func):
+    """Decorator that redirects to main login page if user is not authenticated."""
+    @wraps(view_func)
+    def _wrapped(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('/auth/')
+        return view_func(request, *args, **kwargs)
+    return _wrapped
 
 
 TEAM_NAME = "team10"
@@ -233,7 +244,7 @@ def home(request):
         },
     )
 
-
+@team10_login_required
 def trips_list(request):
     """نمایش لیست تمام سفرها با فیلتر و مرتب‌سازی"""
     # Get filter parameters from request
@@ -332,7 +343,7 @@ def _get_status_fa(status: str) -> str:
     }
     return status_display.get(status, status)
 
-
+@team10_login_required
 def trip_detail(request, trip_id: int):
     """نمایش جزئیات یک سفر خاص"""
     try:
@@ -415,7 +426,7 @@ def _get_activity_type_fa(activity_type: str) -> str:
     }
     return types.get(activity_type, 'سایر')
 
-
+@team10_login_required
 def trip_cost(request, trip_id: int):
     """صفحه محاسبه هزینه سفر"""
     try:
@@ -528,12 +539,12 @@ def trip_cost(request, trip_id: int):
             {"trip": None, "trip_id": trip_id, "total_cost": 0, "cost_breakdown": []},
         )
 
-
+@team10_login_required
 def trip_styles(request, trip_id: int):
     """صفحه انتخاب سبک سفر"""
     return render(request, "team10/trip_styles.html", {"trip_id": trip_id, "styles": STYLES})
 
-
+@team10_login_required
 def trip_replan(request, trip_id: int):
     """صفحه تعیین مجدد برنامه سفر"""
     return render(request, "team10/trip_replan.html", {"trip_id": trip_id})
@@ -602,9 +613,10 @@ def _parse_trip_form_data(request):
 def ping(request):
     return JsonResponse({"team": TEAM_NAME, "ok": True})
 
-
+@team10_login_required
 def base(request):
     return render(request, f"{TEAM_NAME}/index.html")
 
+@team10_login_required
 def create_trip(request):
     return render(request, f"{TEAM_NAME}/create-trip.html")
