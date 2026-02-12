@@ -22,30 +22,51 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 from data.models import Trip
 
-# Register Persian font
+# Register Persian fonts (Regular and Bold)
 try:
-    # Try to find Vazirmatn font in system
+    # Try to find Vazirmatn fonts in system
     import os
-    vazir_paths = [
+    vazir_regular_paths = [
         '/app/fonts/Vazirmatn-Regular.ttf',  # Inside container
         '/home/seyedalida/.local/share/fonts/Vazirmatn-Regular.ttf',  # Host system
         '/usr/share/fonts/truetype/vazir/Vazirmatn-Regular.ttf',
         '/usr/local/share/fonts/Vazirmatn-Regular.ttf'
     ]
+    
+    vazir_bold_paths = [
+        '/app/fonts/Vazirmatn-Bold.ttf',  # Inside container
+        '/home/seyedalida/.local/share/fonts/Vazirmatn-Bold.ttf',  # Host system
+        '/usr/share/fonts/truetype/vazir/Vazirmatn-Bold.ttf',
+        '/usr/local/share/fonts/Vazirmatn-Bold.ttf'
+    ]
 
-    vazir_font_path = None
-    for path in vazir_paths:
+    vazir_regular_path = None
+    vazir_bold_path = None
+    
+    for path in vazir_regular_paths:
         if os.path.exists(path):
-            vazir_font_path = path
+            vazir_regular_path = path
+            break
+            
+    for path in vazir_bold_paths:
+        if os.path.exists(path):
+            vazir_bold_path = path
             break
 
-    if vazir_font_path:
-        pdfmetrics.registerFont(TTFont('Vazirmatn', vazir_font_path))
-        print(f"✅ Persian font loaded from: {vazir_font_path}")
+    if vazir_regular_path:
+        pdfmetrics.registerFont(TTFont('Vazirmatn', vazir_regular_path))
+        print(f"✅ Persian font (Regular) loaded from: {vazir_regular_path}")
     else:
-        print("⚠️  Vazirmatn font not found, using default font")
+        print("⚠️  Vazirmatn-Regular font not found, using default font")
+        
+    if vazir_bold_path:
+        pdfmetrics.registerFont(TTFont('Vazirmatn-Bold', vazir_bold_path))
+        print(f"✅ Persian font (Bold) loaded from: {vazir_bold_path}")
+    else:
+        print("⚠️  Vazirmatn-Bold font not found, using default font for bold text")
+        
 except Exception as e:
-    print(f"⚠️  Error loading Persian font: {e}, using default font")
+    print(f"⚠️  Error loading Persian fonts: {e}, using default fonts")
 
 
 def generate_trip_pdf(trip: Trip) -> BytesIO:
@@ -89,7 +110,7 @@ def generate_trip_pdf(trip: Trip) -> BytesIO:
         alignment=TA_RIGHT,
         fontSize=11,
         leading=14,
-        fontName='Vazirmatn' if vazir_font_path else 'Helvetica'
+        fontName='Vazirmatn' if vazir_regular_path else 'Helvetica'
     )
 
     title_style = ParagraphStyle(
@@ -99,7 +120,7 @@ def generate_trip_pdf(trip: Trip) -> BytesIO:
         fontSize=18,
         leading=22,
         spaceAfter=12,
-        fontName='Vazirmatn' if vazir_font_path else 'Helvetica-Bold'
+        fontName='Vazirmatn-Bold' if vazir_bold_path else 'Helvetica-Bold'
     )
 
     heading_style = ParagraphStyle(
@@ -110,7 +131,7 @@ def generate_trip_pdf(trip: Trip) -> BytesIO:
         leading=18,
         spaceAfter=8,
         textColor=colors.HexColor('#1a73e8'),
-        fontName='Vazirmatn' if vazir_font_path else 'Helvetica-Bold'
+        fontName='Vazirmatn-Bold' if vazir_bold_path else 'Helvetica-Bold'
     )
 
     # === HEADER SECTION ===
@@ -130,7 +151,7 @@ def generate_trip_pdf(trip: Trip) -> BytesIO:
 
     metadata_table = Table(metadata_data, colWidths=[4*cm, 12*cm])
     metadata_table.setStyle(TableStyle([
-        ('FONT', (0, 0), (-1, -1), 'Vazirmatn' if vazir_font_path else 'Helvetica', 10),
+        ('FONT', (0, 0), (-1, -1), 'Vazirmatn' if vazir_regular_path else 'Helvetica', 10),
         ('ALIGN', (0, 0), (0, -1), 'RIGHT'),
         ('ALIGN', (1, 0), (1, -1), 'RIGHT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -194,11 +215,11 @@ def generate_trip_pdf(trip: Trip) -> BytesIO:
                 # Header row styling
                 ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1a73e8')),
                 ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
-                ('FONT', (0, 0), (-1, 0), 'Vazirmatn' if vazir_font_path else 'Helvetica-Bold', 10),
+                ('FONT', (0, 0), (-1, 0), 'Vazirmatn-Bold' if vazir_bold_path else 'Helvetica-Bold', 10),
                 ('ALIGN', (0, 0), (-1, 0), 'CENTER'),
 
                 # Data rows styling
-                ('FONT', (0, 1), (-1, -1), 'Vazirmatn' if vazir_font_path else 'Helvetica', 9),
+                ('FONT', (0, 1), (-1, -1), 'Vazirmatn' if vazir_regular_path else 'Helvetica', 9),
                 ('ALIGN', (0, 1), (2, -1), 'CENTER'),  # Cost, duration, time
                 ('ALIGN', (3, 1), (3, -1), 'RIGHT'),   # Title
                 ('ALIGN', (4, 1), (4, -1), 'CENTER'),  # Type
@@ -264,18 +285,18 @@ def generate_trip_pdf(trip: Trip) -> BytesIO:
     breakdown_table.setStyle(TableStyle([
         # Header
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#e8f0fe')),
-        ('FONT', (0, 0), (-1, 0), 'Vazirmatn' if vazir_font_path else 'Helvetica-Bold', 10),
+        ('FONT', (0, 0), (-1, 0), 'Vazirmatn-Bold' if vazir_bold_path else 'Helvetica-Bold', 10),
         ('ALIGN', (0, 0), (-1, -1), 'RIGHT'),
 
         # Data rows
-        ('FONT', (0, 1), (-1, -2), 'Vazirmatn' if vazir_font_path else 'Helvetica', 10),
+        ('FONT', (0, 1), (-1, -2), 'Vazirmatn' if vazir_regular_path else 'Helvetica', 10),
         ('ROWBACKGROUNDS', (0, 1), (-1, -2),
          [colors.white, colors.HexColor('#f8f9fa')]),
 
         # Total row
         ('BACKGROUND', (0, -1), (-1, -1), colors.HexColor('#1a73e8')),
         ('TEXTCOLOR', (0, -1), (-1, -1), colors.whitesmoke),
-        ('FONT', (0, -1), (-1, -1), 'Vazirmatn' if vazir_font_path else 'Helvetica-Bold', 11),
+        ('FONT', (0, -1), (-1, -1), 'Vazirmatn-Bold' if vazir_bold_path else 'Helvetica-Bold', 11),
 
         # Borders
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#dadce0')),
@@ -296,7 +317,7 @@ def generate_trip_pdf(trip: Trip) -> BytesIO:
         f"<i>تولید شده در {datetime.now().strftime('%Y-%m-%d %H:%M')} توسط Trip Plan Service</i>",
         ParagraphStyle('Footer', parent=rtl_style, fontSize=8,
                        textColor=colors.HexColor('#5f6368'),
-                       fontName='Vazirmatn' if vazir_font_path else 'Helvetica')
+                       fontName='Vazirmatn' if vazir_regular_path else 'Helvetica')
     )
     story.append(footer_text)
 
