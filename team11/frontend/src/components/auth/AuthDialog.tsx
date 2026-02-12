@@ -1,6 +1,16 @@
 import React, { useState } from 'react';
 import LoginForm from '@/components/auth/LoginForm';
 import SignupForm from '@/components/auth/SignupForm';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogDescription,
+    DialogOverlay,
+    DialogClose,
+} from '@/components/ui/dialog';
+import { useAuth } from '@/context/AuthContext';
 
 interface AuthDialogProps {
     isOpen: boolean;
@@ -13,26 +23,29 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
     isOpen,
     onClose,
     onSuccess,
-    initialMode = 'signup'
+    initialMode = 'login'
 }) => {
+    const { setUser } = useAuth();
     const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
 
     if (!isOpen) return null;
 
     const handleSuccess = (user: any) => {
+        setUser(user); // Update global auth state
         onSuccess(user);
         onClose();
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 relative max-h-[90vh] overflow-y-auto">
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 left-4 text-gray-500 hover:text-gray-700 transition-colors"
-                >
+        <Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
+            <DialogOverlay />
+            <DialogContent
+                className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full mx-4 relative max-h-[90vh] overflow-y-auto translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] fixed my-4 max-h-[80vh]"
+                showCloseButton={false}
+            >
+                <DialogClose className="absolute top-4 left-4 text-gray-500 hover:text-gray-700 transition-colors">
                     <i className="fa-solid fa-times text-xl"></i>
-                </button>
+                </DialogClose>
 
                 <div className="logo flex items-center justify-center mb-6">
                     <i className="fa-solid fa-leaf text-persian-gold text-4xl ml-3"></i>
@@ -58,8 +71,8 @@ const AuthDialog: React.FC<AuthDialogProps> = ({
                         showSwitchLink={true}
                     />
                 )}
-            </div>
-        </div>
+            </DialogContent>
+        </Dialog>
     );
 };
 

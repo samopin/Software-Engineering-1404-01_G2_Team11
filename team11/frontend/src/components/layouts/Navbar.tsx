@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../ui/Button';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout, isLoading } = useAuth();

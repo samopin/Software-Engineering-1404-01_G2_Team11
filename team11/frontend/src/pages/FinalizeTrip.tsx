@@ -308,7 +308,6 @@ const FinalizeTrip: React.FC = () => {
                 isOpen={isAuthDialogOpen}
                 onClose={() => setIsAuthDialogOpen(false)}
                 onSuccess={handleAuthSuccess}
-                initialMode="signup"
             />
 
             {/* Confirm Dialog */}
