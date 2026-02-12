@@ -672,6 +672,7 @@ def create_trip(request):
     context = {
         "is_success": True,
         "error": None,
+        "styles": STYLES,
     }
 
     if request.method == "POST":
