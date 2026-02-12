@@ -344,7 +344,7 @@ class TripViewSet(viewsets.ViewSet):
         try:
             # Create day (auto-calculates day_index and specific_date)
             day = TripDayService.create_day(int(pk))
-            
+
             return Response(
                 {
                     'day_id': day.day_id,
