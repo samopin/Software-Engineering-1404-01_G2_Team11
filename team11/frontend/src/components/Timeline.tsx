@@ -415,6 +415,9 @@ const Timeline: React.FC<TimelineProps> = ({
                                     >
                                         {index < items.length - 1 && (
                                             <button
+                                                style={{
+                                                    boxShadow: 'rgb(170, 170, 170) 0px 1px 4px 1px'
+                                                }}
                                                 onClick={() => scrollToCard(index + 1)}
                                                 className={`absolute -left-8 top-1/2 transform -translate-y-1/2 bg-white border hover:cursor-pointer border-gray-300 rounded-full w-7 h-7 flex items-center justify-center shadow-sm transition-opacity hover:bg-gray-50 z-10 ${showArrows ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                                                 aria-label="next"
@@ -435,6 +438,9 @@ const Timeline: React.FC<TimelineProps> = ({
 
                                         {index > 0 && (
                                             <button
+                                                style={{
+                                                    boxShadow: 'rgb(170, 170, 170) 0px 1px 4px 1px'
+                                                }}
                                                 onClick={() => scrollToCard(index - 1)}
                                                 className={`absolute -right-8 top-1/2 transform -translate-y-1/2 bg-white  hover:cursor-pointer border-gray-300 rounded-full w-7 h-7 flex items-center justify-center shadow-sm transition-opacity hover:bg-gray-50 z-10 ${showArrows ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
                                                 aria-label="prev"
@@ -455,7 +461,7 @@ const Timeline: React.FC<TimelineProps> = ({
                         sections={rangeSections}
                         min={0}
                         max={totalMinutes}
-                        step={15}
+                        step={10}
                         onChange={handleRangeChange}
                         activeColor={color}
                         gapColor="#e2e8f0"

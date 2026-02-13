@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { tripApi } from '@/services/api';
 import { useApi } from '@/hooks/useApi';
 import { TripHistoryItem } from '@/types/trip';
@@ -8,8 +9,9 @@ import { useNotification } from '@/contexts/NotificationContext';
 import { getMockTripHistory } from '@/services/mockService';
 
 const TripsContainer: React.FC = () => {
+    const navigate = useNavigate();
     const { success, error: showError } = useNotification();
-    const { data, isLoading, error, request } = useApi(tripApi.getHistory);
+    const { data, isLoading, error, errObj, request } = useApi(tripApi.getHistory);
     const [trips, setTrips] = useState<TripHistoryItem[]>([]);
     const [sortBy, setSortBy] = useState<'start_date' | 'total_cost' | null>(null);
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -115,10 +117,35 @@ const TripsContainer: React.FC = () => {
     }
 
     // Error State
-    if (error) {
-        const errorMessage = typeof error === 'object' && error !== null && 'response' in error
-            ? (error as any).response?.data?.error || 'خطا در بارگذاری سفرها'
-            : 'خطا در بارگذاری سفرها';
+    if (errObj) {
+        // Use errObj for error details
+        const isUnauthorized = typeof errObj === 'object' && errObj !== null && 'response' in errObj && (errObj as any).response?.status === 401;
+        console.log(errObj);
+        if (isUnauthorized) {
+            return (
+                <div className="flex items-center justify-center min-h-[50vh]">
+                    <div className="text-center">
+                        <i className="fa-solid fa-user-lock text-persian-blue text-6xl mb-4"></i>
+                        <p className="text-text-dark text-lg font-medium mb-2">برای مشاهده سفرها باید وارد شوید</p>
+                        <p className="text-mountain-grey text-sm mb-4">
+                            لطفاً ابتدا وارد حساب کاربری خود شوید تا بتوانید سفرهای خود را مشاهده کنید.
+                        </p>
+                        <button
+                            onClick={() => navigate('/login')}
+                            className="px-6 py-2 bg-persian-blue text-white rounded-lg hover:bg-persian-blue/90 transition-colors"
+                        >
+                            ورود به حساب کاربری
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+        let errorMessage = 'خطا در بارگذاری سفرها';
+        if (typeof errObj === 'object' && 'response' in errObj) {
+            errorMessage = (errObj as any).response?.data?.error || (errObj as any).response?.data?.message || errorMessage;
+        } else if (typeof errObj === 'string') {
+            errorMessage = errObj;
+        }
 
         return (
             <div className="flex items-center justify-center min-h-[50vh]">

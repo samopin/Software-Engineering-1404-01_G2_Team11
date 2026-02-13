@@ -564,7 +564,7 @@ const FinalizeTrip: React.FC = () => {
                             {/* Left: Budget + Category Bars */}
                             <div className="md:w-3/4 w-full">
                                 {/* Budget Level */}
-                                <div className="mb-6">
+                                <div className="mb-6 md:w-3/4">
                                     <div className="flex items-center justify-between mb-4">
                                         <h4 className="text-lg font-bold text-gray-800">سطح بودجه:</h4>
                                         <div className="flex gap-2">
@@ -621,7 +621,7 @@ const FinalizeTrip: React.FC = () => {
                                 </div>
 
                                 {/* Category Cost Bars */}
-                                <div className="space-y-4">
+                                <div className="space-y-2 md:w-3/4">
                                     {categoryCosts.map((catCost) => (
                                         <div key={catCost.category}>
                                             <div className="flex items-center justify-between mb-1">

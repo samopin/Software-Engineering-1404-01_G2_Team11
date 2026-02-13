@@ -282,13 +282,13 @@ const CreateTripForm = () => {
       )}
 
       {/* Action Buttons (left-aligned, mode-based: only one active CTA) */}
-      <div className="mt-8" style={{ direction: 'ltr' }}>
+      <div className="mt-8 mb-12" style={{ direction: 'ltr' }}>
         <div className="flex gap-4 items-start">
           {mode === 'quick' && <Button
             variant='cta'
             disabled={mode !== 'quick' || !isFormValid || isCreating}
             isLoading={isCreating}
-            className="w-56 py-4 text-lg rounded-xl"
+            className="w-56 py-2 text-lg rounded-xl"
             onClick={() => handleCreate('quick')}
           >
             ایجاد برنامه فوری
@@ -298,7 +298,7 @@ const CreateTripForm = () => {
             variant='primary'
             disabled={mode !== 'pro' || !isFormValid || !hasAdvancedField || isCreating}
             isLoading={isCreating}
-            className="w-56 py-4 text-lg rounded-xl"
+            className="w-56 py-2 text-lg rounded-xl"
             onClick={() => handleCreate('pro')}
           >
             ایجاد برنامه حرفه‌ای
