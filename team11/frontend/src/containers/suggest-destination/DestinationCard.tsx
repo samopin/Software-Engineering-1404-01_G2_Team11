@@ -25,7 +25,7 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
   const destinationPath = `/create-trip?${params.toString()}`;
 
   return (
-    <div className="group relative flex flex-col bg-[#E0E0E0] rounded-2xl shadow-sm border border-white/60 transition-all duration-300 hover:shadow-2xl overflow-hidden h-full">
+    <div className="group relative flex flex-col bg-[#E0E0E0] rounded-2xl shadow-sm border border-white/60 transition-all duration-300 hover:shadow-md overflow-hidden h-full destination-card-hover">
 
       {/* 1. Image Area - Placeholder only, as image is not in API */}
       <div className="relative h-48 w-full bg-[#E0E0E0] overflow-hidden py-2">
@@ -33,7 +33,10 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
           <img
             src={image}
             alt={province}
-            className="w-full bg-[#E0E0E0] h-full object-contain group-hover:scale-105 transition-transform duration-500"
+            className="w-full bg-[#E0E0E0] h-full object-contain group-hover:scale-105 transition-transform duration-500 "
+            style={{
+              borderRadius: '40px'
+            }}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-mountain-grey/20">
@@ -42,11 +45,12 @@ const DestinationCard: React.FC<DestinationCardProps> = ({
         )}
       </div>
 
+      {/* Gradient Side Accent - Positioned specifically next to the text area */}
+      <div className="absolute right-0 top-0 bottom-0 w-0 bg-gradient-to-b from-persian-gold to-tile-cyan opacity-70 group-hover:opacity-100 group-hover:w-1.5 transition-all duration-300" />
+
       {/* 2. Content Area - Gradient border moved here */}
       <div className="flex flex-col p-6 pt-0 -mt-6 relative z-20 flex-1">
 
-        {/* Gradient Side Accent - Positioned specifically next to the text area */}
-        <div className="absolute right-0 top-12 bottom-6 w-1 bg-gradient-to-b from-persian-gold to-tile-cyan opacity-80 group-hover:opacity-100 transition-opacity" />
 
         {/* City Title Tag (province removed) */}
         <div className="bg-[#BDBDBD] text-text-dark px-8 py-2 rounded-lg text-xl font-black w-fit mx-auto mb-4 shadow-md group-hover:bg-persian-blue group-hover:text-white transition-colors">

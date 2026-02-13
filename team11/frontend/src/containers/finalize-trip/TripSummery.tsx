@@ -49,7 +49,7 @@ const TripSummary: React.FC<TripSummaryProps> = ({
                     {duration_days && (
                         <span>
                             <i className="fa-solid fa-clock ml-1"></i>
-                            {duration_days} روز
+                            {Number(duration_days).toLocaleString('fa-IR')} روز
                         </span>
                     )}
                 </div>
