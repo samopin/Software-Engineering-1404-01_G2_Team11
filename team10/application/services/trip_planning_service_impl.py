@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, date
-from typing import List, Optional, Tuple, Dict, Any
+from typing import List, Optional, Tuple, Dict, Any, Union
 from dataclasses import dataclass
 
 import jdatetime
@@ -937,14 +937,14 @@ class TripPlanningServiceImpl(TripPlanningService):
             days = (req.end_at - req.start_at).days if req.end_at and req.start_at else 0
             display_status, display_status_label_fa = self._compute_display_status(
                 req.start_at,
-                req.end_at,
-                trip.status
+                req.end_at
             )
             
             result.append({
                 'id': trip.id,
                 'destination_name': trip.destination_name or req.destination_name,
                 'start_at': req.start_at,
+                'end_at': req.end_at,
                 'days': days,
                 'budget_level': req.budget_level,
                 'travelers_count': req.travelers_count,
@@ -978,33 +978,22 @@ class TripPlanningServiceImpl(TripPlanningService):
 
     def _compute_display_status(
         self,
-        req_start_at: Optional[datetime],
-        req_end_at: Optional[datetime],
-        stored_status: str
+        start_at: Optional[Union[datetime, date]],
+        end_at: Optional[Union[datetime, date]]
     ) -> Tuple[str, str]:
-        """Compute display status based on requirements dates, with fallback to stored status."""
-        status_labels_fa = {
-            'DRAFT': 'پیش‌نویس',
-            'IN_PROGRESS': 'در حال اجرا',
-            'COMPLETED': 'پایان‌یافته',
-            'CONFIRMED': 'تأیید‌شده',
-            'CANCELLED': 'لغو‌شده',
-            'EXPIRED': 'منقضی‌شده',
-            'NEEDS_REGENERATION': 'نیاز به بازتولید',
-        }
-
-        if not req_start_at or not req_end_at:
-            return stored_status, status_labels_fa.get(stored_status, 'نامشخص')
+        """Compute display status based on start/end dates (date-only comparison)."""
+        if not start_at or not end_at:
+            return "UNKNOWN", "نامشخص"
 
         today = datetime.now().date()
-        start_date = req_start_at.date()
-        end_date = req_end_at.date()
+        start_date = start_at.date() if isinstance(start_at, datetime) else start_at
+        end_date = end_at.date() if isinstance(end_at, datetime) else end_at
 
         if start_date > today:
-            return 'DRAFT', status_labels_fa['DRAFT']
+            return "DRAFT", "پیش‌نویس"
         if start_date <= today < end_date:
-            return 'IN_PROGRESS', status_labels_fa['IN_PROGRESS']
-        return 'COMPLETED', status_labels_fa['COMPLETED']
+            return "IN_PROGRESS", "در حال اجرا"
+        return "COMPLETED", "پایان‌یافته"
 
     def _get_preference_description(self, preference_tag: str) -> str:
         """Get description for preference tag (canonical styles)."""
