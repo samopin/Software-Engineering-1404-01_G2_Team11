@@ -1,19 +1,34 @@
-from team2.models import Article, Tag, Version
-import google.generativeai as genai
-from django.conf import settings
 import json
+import logging
+import sys
 
-genai.configure(api_key=settings.GEMINI_API_KEY)
+from celery import shared_task
+from django.conf import settings
 
-MODEL = genai.GenerativeModel("gemini-1.5-flash")
+logger = logging.getLogger(__name__)
 
-def tag_article(article_name):
+MODEL_NAME = "gemini-2.5-flash"
+_CLIENT = None
+
+
+def _get_client():
+    global _CLIENT
+    if _CLIENT is None:
+        from google import genai
+        _CLIENT = genai.Client(api_key=settings.GEMINI_API_KEY)
+    return _CLIENT
+
+
+@shared_task(bind=True, max_retries=2, default_retry_delay=10)
+def tag_article(self, article_name):
+    from team2.models import Article, Tag, Version
+
     article = Article.objects.get(name=article_name)
     version_name = article.current_version
     if version_name is None:
         return None
- 
-    version = Version.objects.get(name=version_name) 
+
+    version = Version.objects.get(name=version_name)
     content = version.content
 
     existing_tags = list(Tag.objects.values_list("name", flat=True))
@@ -31,8 +46,10 @@ Your job:
   "new_tags": ["new_tag1"]
 }}
 
+4. DONT PUT ANYTHING ELSE IN THE RESPONSE. JUST THE JSON STRING. DONT PUT ```json
+
 Guidelines:
-- Use concise, lowercase tags
+- Use concise farsi tags
 - Avoid duplicates
 - Maximum 5 total tags
 - Prefer existing tags whenever possible
@@ -46,16 +63,19 @@ ARTICLE:
 \"\"\"
 """
 
-    response = MODEL.generate_content(prompt)
-
     try:
+        response = _get_client().models.generate_content(model=MODEL_NAME, contents=prompt)
+        if response.text.startswith("```json"):
+            response.text = response.text[9:]
+        if response.text.endswith("```"):
+            response.text = response.text[:-3]
         data = json.loads(response.text)
 
         selected_existing = data.get("selected_existing_tags", [])
         new_tags = data.get("new_tags", [])
-
-    except Exception:
-        return None
+    except Exception as exc:
+        logger.warning("tag_article failed for %s: %s", article_name, exc)
+        raise self.retry(exc=exc)
 
     for tag_name in selected_existing:
         try:
@@ -74,21 +94,23 @@ ARTICLE:
     }
 
 
+@shared_task(bind=True, max_retries=2, default_retry_delay=10)
+def summarize_article(self, article_name):
+    from team2.models import Article, Version
 
-def summarize_article(article_name):
     article = Article.objects.get(name=article_name)
     version_name = article.current_version
-    
+
     if version_name is None:
         return
 
-    version = Version.objects.get(name=version_name) 
+    version = Version.objects.get(name=version_name)
     content = version.content
 
     prompt = f"""
 You are an assistant that writes concise, neutral summaries.
 
-Summarize the following article in 3–6 sentences.
+Summarize the following article in 3–6 sentences in FARSI.
 Do not add information that is not present.
 Be factual and clear.
 
@@ -98,7 +120,12 @@ ARTICLE:
 \"\"\"
 """
 
-    response = MODEL.generate_content(prompt)
+    try:
+        response = _get_client().models.generate_content(model=MODEL_NAME, contents=prompt)
+    except Exception as exc:
+        logger.warning("summarize_article failed for %s: %s", article_name, exc)
+        raise self.retry(exc=exc)
+
     summary = response.text.strip()
 
     version.summary = summary
