@@ -125,8 +125,7 @@ class AlternativesProvider:
         # 1. Get original place info
         original = self.facility_client.get_place_by_id(original_place_id)
 
-        if not original:
-            return []
+
 
         # 2. Search for similar places
         alternatives = self.facility_client.search_places(
@@ -143,12 +142,12 @@ class AlternativesProvider:
         ]
 
         # 4. Rank by distance from original
-        if original.get('lat') and original.get('lng'):
-            alternatives = self._rank_by_distance(
-                alternatives,
-                original['lat'],
-                original['lng']
-            )
+        # if original.get('lat') and original.get('lng'):
+        #     alternatives = self._rank_by_distance(
+        #         alternatives,
+        #         original['lat'],
+        #         original['lng']
+        #     )
 
         return alternatives[:max_results]
 
