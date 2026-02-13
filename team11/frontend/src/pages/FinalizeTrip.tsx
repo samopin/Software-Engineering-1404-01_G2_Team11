@@ -64,8 +64,10 @@ const FinalizeTrip: React.FC = () => {
 
     useEffect(() => {
         if (data) {
-            setTripData(data);
-            setSelectedBudget(data.budget_level || 'MEDIUM');
+            // Handle both direct Trip response and wrapped response
+            const trip = (data as any).trip || data;
+            setTripData(trip);
+            setSelectedBudget(trip.budget_level || 'MEDIUM');
         }
     }, [data]);
 
@@ -508,7 +510,7 @@ const FinalizeTrip: React.FC = () => {
                 {/* Header */}
                 <TripSummary
                     title={tripData.title}
-                    city={tripData.city}
+                    city={tripData.city || undefined}
                     province={tripData.province}
                     start_date={tripData.start_date}
                     end_date={tripData.end_date}
