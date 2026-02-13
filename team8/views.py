@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from core.auth import api_login_required
 
-TEAM_NAME = "team5"
+TEAM_NAME = "team8"
 
 @api_login_required
 def ping(request):
