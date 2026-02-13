@@ -109,11 +109,16 @@ const CreateTripForm = () => {
     setIsCreating(true);
 
     try {
-      // Calculate duration_days
+      // Calculate startDate and endDate
       const startDate = formData.startDate.format('YYYY-MM-DD');
-      const endDate = formData.endDate.format('YYYY-MM-DD');
+      let endDate: string;
+      if (formData.endDate) {
+        endDate = formData.endDate.format('YYYY-MM-DD');
+      } else {
+        // If endDate is null, set to startDate + 3 days
+        endDate = formData.startDate.clone().add(3, 'days').format('YYYY-MM-DD');
+      }
       let durationDays = 1; // Default to 1 day
-
       if (formData.endDate) {
         durationDays = formData.endDate.diff(formData.startDate, 'days') + 1;
       }
