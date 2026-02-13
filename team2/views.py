@@ -1,14 +1,19 @@
+import time
+import logging
+
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.db import transaction
 from rest_framework import status
+
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from core.auth import api_login_required
 from .authentication import JWTMiddlewareAuthentication
 from .models import Article, Version, Vote
+from celery import chord
 from .serializers import (
     ArticleSerializer, VersionSerializer, CreateArticleSerializer,
     CreateVersionFromVersionSerializer, CreateEmptyVersionSerializer, VoteSerializer,
@@ -168,10 +173,9 @@ def publish_version(request, version_name):
     article.current_version = version
     article.save()
 
-    tag_article(article.name)
-    summarize_article(article.name)
-
-    index_article_version(version)
+    chord(
+        [tag_article.s(article.name), summarize_article.s(article.name)]
+    )(index_article_version.s(version.name))
 
     return Response(ArticleSerializer(article).data)
 
@@ -180,8 +184,15 @@ def publish_version(request, version_name):
 @authentication_classes(AUTH_CLASSES)
 @permission_classes(PERM_CLASSES)
 def my_articles(request):
-    articles = Article.objects.filter(creator_id=request.user.id)
-    return Response(ArticleSerializer(articles, many=True).data)
+    articles = Article.objects.filter(
+        creator_id=request.user.id
+    ).select_related('current_version').prefetch_related('versions')
+    article_list = list(articles)
+
+    data = ArticleSerializer(article_list, many=True).data
+
+    resp = Response(data)
+    return resp
 
 
 @api_view(['POST'])
@@ -221,5 +232,13 @@ def search_articles(request):
     if not query:
         return Response({"detail": "Query missing"}, status=400)
 
-    results = search_articles_semantic(query)
-    return Response({"query": query, "results": results})
+    try:
+        results = search_articles_semantic(query)
+    except Exception as e:
+        return Response(
+            {"detail": f"Search service unavailable: {e}"},
+            status=status.HTTP_503_SERVICE_UNAVAILABLE,
+        )
+
+    resp = Response({"query": query, "results": results})
+    return resp

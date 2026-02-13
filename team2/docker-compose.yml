@@ -17,7 +17,10 @@ services:
     container_name: elasticsearch
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
     networks:
@@ -27,12 +30,62 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  redis:
+    image: redis:7-alpine
+    networks:
+      - app404
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  team2-celery:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    command: celery -A app404 worker -l info
+    env_file:
+      - ../.env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    volumes:
+      - ..:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - app404
+
+  team2-flower:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    command: celery -A app404 flower --port=5555
+    env_file:
+      - ../.env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    ports:
+      - "5555:5555"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - app404
+
   team2-frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
     networks:
       - app404
+
+volumes:
+  es_data:
 
 networks:
   app404:
