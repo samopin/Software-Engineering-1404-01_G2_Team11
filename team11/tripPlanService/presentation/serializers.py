@@ -179,18 +179,20 @@ class UserMediaSerializer(serializers.ModelSerializer):
 class TripListSerializer(serializers.ModelSerializer):
     """Lightweight serializer for trip lists"""
 
+    id = serializers.IntegerField(source='trip_id', read_only=True)
+    total_cost = serializers.DecimalField(source='total_estimated_cost', max_digits=12, decimal_places=2, read_only=True)
     days_count = serializers.SerializerMethodField()
     location = serializers.SerializerMethodField()
 
     class Meta:
         model = Trip
         fields = [
-            'trip_id', 'title', 'location', 'province', 'city',
+            'id', 'trip_id', 'title', 'location', 'province', 'city',
             'start_date', 'end_date', 'duration_days',
             'budget_level', 'travel_style', 'status',
-            'days_count', 'created_at'
+            'days_count', 'total_cost', 'created_at'
         ]
-        read_only_fields = ['trip_id', 'created_at', 'end_date']
+        read_only_fields = ['id', 'trip_id', 'created_at', 'end_date', 'total_cost']
 
     def get_days_count(self, obj):
         """Get number of days in trip"""

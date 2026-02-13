@@ -18,7 +18,7 @@ class TripService:
     """Business logic for Trip operations"""
 
     @staticmethod
-    def get_all_trips(user_id: Optional[int] = None, status: Optional[str] = None) -> List[Trip]:
+    def get_all_trips(user_id: Optional[str] = None, status: Optional[str] = None) -> List[Trip]:
         """Get all trips with optional filters"""
         return list(TripRepository.get_all(user_id, status))
 
