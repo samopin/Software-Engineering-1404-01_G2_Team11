@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApi } from '@/hooks/useApi';
 import { useAuth } from '@/hooks/useAuth';
-import { tripApi, tripItemApi } from '@/services/api';
+import api, { tripApi, tripItemApi } from '@/services/api';
 import { getMockTrip } from '@/services/mockService';
 import { Trip, TripItemWithDay, BudgetLevel, AlternativePlace } from '@/types/trip';
 import Timeline from '@/components/Timeline';
