@@ -88,6 +88,36 @@ export interface BulkCreateItemPayload {
 }
 
 // API Responses
+// Destination Suggest API
+export type SuggestSeason = 'spring' | 'summer' | 'fall' | 'winter';
+
+export type SuggestTravelStyle = 'SOLO' | 'COUPLE' | 'FAMILY' | 'FRIENDS' | 'BUSINESS';
+
+export interface DestinationSuggestRequest {
+  season: SuggestSeason;
+  budget_level: BudgetLevel;
+  travel_style: SuggestTravelStyle;
+  interests?: string[];
+}
+
+export interface DestinationSuggestion {
+  city: string;
+  province: string;
+  score: number;
+  reason: string;
+  highlights: string[];
+  best_season: SuggestSeason;
+  estimated_cost: string;
+  duration_days: number;
+  description: string;
+  categories: string[];
+}
+
+export interface DestinationSuggestResponse {
+  success: boolean;
+  count: number;
+  suggestions: DestinationSuggestion[];
+}
 export interface CostBreakdownResponse {
   total_estimated_cost: number;
   breakdown_by_category: {

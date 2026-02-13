@@ -11,6 +11,7 @@ import {
     TRAVEL_STYLES,
     GEOGRAPHIC_REGIONS,
     INITIAL_INTERESTS,
+    BUDGET_LEVELS,
 } from './constants';
 import DestinationCard from './DestinationCard';
 import { PROVINCES_DETAILS } from '@/constants';
@@ -45,11 +46,16 @@ const SuggestDestinationForm = () => {
 
     // Mapping API results to Province Details (Image and Persian Name)
     const destinations = destinationsData?.suggestions.map((item: { province: string }) => {
-        const provinceKey = item.province.toLowerCase() as keyof typeof PROVINCES_DETAILS;
-        const detail = PROVINCES_DETAILS[provinceKey];
+        // Find the English province key by matching Persian name
+        const provinceEntry = Object.entries(PROVINCES_DETAILS).find(
+            ([, detail]) => detail.name === item.province
+        );
+        const provinceKey = provinceEntry ? provinceEntry[0] : item.province;
+        const detail = provinceEntry ? provinceEntry[1] : undefined;
 
         return {
             ...item,
+            province: provinceKey,
             name: detail?.name || item.province,
             image: detail?.image
         };
@@ -96,7 +102,8 @@ const SuggestDestinationForm = () => {
     const handleSubmit = async () => {
         const payload = {
             ...formData,
-            interests: selectedInterestValues
+            interests: selectedInterestValues,
+            budget_level: BUDGET_LEVELS[1].value
         };
 
         try {

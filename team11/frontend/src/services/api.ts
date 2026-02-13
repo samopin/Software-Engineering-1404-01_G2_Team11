@@ -1,5 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 import {
+    DestinationSuggestRequest,
+    DestinationSuggestResponse
+} from '@/types/trip';
+import {
     CreateTripPayload,
     UpdateTripPayload,
     UpdateTripItemPayload,
@@ -33,7 +37,8 @@ api.interceptors.request.use(
 );
 
 export const destinationApi = {
-    suggest: (data: any) => api.post('/destinations/suggest', data),
+    suggest: (data: DestinationSuggestRequest) =>
+        api.post<DestinationSuggestResponse>('/destinations/suggest/', data),
 };
 
 export const tripApi = {

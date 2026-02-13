@@ -3,7 +3,7 @@ import Select from '../../components/ui/Select';
 import Button from '../../components/ui/Button';
 import ChipButton from '@/components/ui/ChipButton';
 import TextField from '@/components/ui/TextField';
-import { TRAVEL_STYLES, BUDGET_LEVELS, INITIAL_INTERESTS, PROGRAM_DENSITY } from '../suggest-destination/constants';
+import { TRAVEL_STYLES, BUDGET_LEVELS, INITIAL_INTERESTS, PROGRAM_DENSITY, TRAVEL_SEASONS_MAP } from '../suggest-destination/constants';
 import { PROVINCES_DETAILS, CITIES_MAP } from '@/constants';
 import DatePicker from '@/components/ui/DatePicker';
 import { useNavigate, useSearchParams } from 'react-router-dom';
