@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useApi } from '@/hooks/useApi';
 import { useAuth } from '@/hooks/useAuth';
 import api, { tripApi, tripItemApi } from '@/services/api';
-import { getMockTrip } from '@/services/mockService';
+import { getMockItemAlternatives, getMockTrip } from '@/services/mockService';
 import { Trip, TripItemWithDay, BudgetLevel, AlternativePlace } from '@/types/trip';
 import Timeline from '@/components/Timeline';
 import Button from '@/components/ui/Button';
@@ -166,12 +166,12 @@ const FinalizeTrip: React.FC = () => {
 
         try {
             // Fetch alternatives
-            const response = await tripItemApi.getAlternatives(itemId, 5);
+            const response = await getMockItemAlternatives(itemId, 5);
 
             // Update dialog with alternatives
             setAlternativesDialog((prev) => ({
                 ...prev,
-                alternatives: response.data.alternatives || [],
+                alternatives: (response as any).data?.alternatives || [],
                 isLoading: false,
             }));
         } catch (err: any) {
