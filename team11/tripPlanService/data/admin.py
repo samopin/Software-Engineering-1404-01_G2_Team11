@@ -59,13 +59,24 @@ class ImportExportMixin:
 
                 created_count = 0
                 updated_count = 0
+
+                model_fields_map = {f.name: f for f in self.model._meta.get_fields()}
+
                 for item in data:
                     item_copy = dict(item)
                     pk = item_copy.pop('id', None) or item_copy.pop('pk', None)
+                    
+                    clean_item = {}
 
-                    # Clean: remove fields that don't exist on the model
-                    model_fields = {f.name for f in self.model._meta.get_fields()}
-                    clean_item = {k: v for k, v in item_copy.items() if k in model_fields}
+                    for k, v in item_copy.items():
+                        if k in model_fields_map:
+                            field = model_fields_map[k]
+                            
+                            if field.is_relation and field.many_to_one and isinstance(v, dict):
+                                target_id = v.get('id') or v.get('pk')
+                                clean_item[field.attname] = target_id
+                            else:
+                                clean_item[k] = v
 
                     if pk:
                         obj, created = self.model.objects.update_or_create(
@@ -87,6 +98,7 @@ class ImportExportMixin:
             except json.JSONDecodeError:
                 messages.error(request, '❌ فایل JSON معتبر نیست.')
             except Exception as e:
+                print(f"Import Error: {e}")
                 messages.error(request, f'❌ خطا: {e}')
 
             return redirect('..')

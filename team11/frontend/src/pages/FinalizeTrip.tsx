@@ -52,7 +52,7 @@ const FinalizeTrip: React.FC = () => {
         alternatives: [],
         isLoading: false,
     });
-    const { data, isLoading, error, request } = useApi(getMockTrip);
+    const { data, isLoading, error, request } = useApi(tripApi.getById);
 
     const tripId = Number(tripIdParam)
 
@@ -466,7 +466,7 @@ const FinalizeTrip: React.FC = () => {
                                     className="w-full px-6 py-2"
                                 >
                                     <i className="fa-solid fa-download ml-2"></i>
-                                    دانلود PDF (اختیاری)
+                                    دانلود PDF برنامه
                                 </Button>
 
                                 <Button
@@ -507,6 +507,7 @@ const FinalizeTrip: React.FC = () => {
 
                 {/* Header */}
                 <TripSummary
+                    title={tripData.title}
                     city={tripData.city}
                     province={tripData.province}
                     start_date={tripData.start_date}
