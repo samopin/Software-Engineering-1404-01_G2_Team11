@@ -5,6 +5,7 @@ import { formatToJalali } from '@/utils/dateUtils';
 
 
 interface TripSummaryProps {
+    title: string
     city?: string;
     province?: string;
     start_date?: string;
@@ -16,6 +17,7 @@ interface TripSummaryProps {
 }
 
 const TripSummary: React.FC<TripSummaryProps> = ({
+    title,
     city,
     province,
     start_date,
@@ -29,6 +31,9 @@ const TripSummary: React.FC<TripSummaryProps> = ({
         <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-4 text-sm text-gray-600">
+                    {title && <span className='font-bold text-lg underline '>
+                        {title}
+                    </span>}
                     {city && province && (
                         <span>
                             <i className="fa-solid fa-location-dot ml-1"></i>
@@ -44,7 +49,7 @@ const TripSummary: React.FC<TripSummaryProps> = ({
                     {duration_days && (
                         <span>
                             <i className="fa-solid fa-clock ml-1"></i>
-                            {duration_days} روز
+                            {Number(duration_days).toLocaleString('fa-IR')} روز
                         </span>
                     )}
                 </div>

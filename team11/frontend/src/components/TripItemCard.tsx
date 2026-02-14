@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TripItem } from '@/types/trip';
+import { TripItem, CategoryType } from '@/types/trip';
 
 interface TripItemCardProps {
     item: TripItem;
@@ -8,6 +8,22 @@ interface TripItemCardProps {
     onDelete: (itemId: number) => void;
     onSuggestAlternative: (itemId: number) => void;
 }
+
+const getCategoryLabel = (category: CategoryType): string => {
+    const labels: Record<CategoryType, string> = {
+        STAY: 'اقامت',
+        CULTURAL: 'فرهنگی',
+        HISTORICAL: 'تاریخی',
+        SHOPPING: 'خرید',
+        RECREATIONAL: 'تفریحی',
+        RELIGIOUS: 'مذهبی',
+        NATURAL: 'طبیعی',
+        DINING: 'غذا',
+        STUDY: 'آموزشی',
+        EVENTS: 'رویداد'
+    };
+    return labels[category] || category;
+};
 
 const TripItemCard: React.FC<TripItemCardProps> = ({
     item,
@@ -69,7 +85,7 @@ const TripItemCard: React.FC<TripItemCardProps> = ({
                                 : 'bg-purple-100 text-purple-700'
                                 }`}
                         >
-                            {item.category}
+                            {getCategoryLabel(item.category)}
                         </span>
                         <span className="text-sm font-bold text-gray-700">
                             {item.cost.toLocaleString('fa-IR')} تومان

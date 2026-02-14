@@ -964,7 +964,15 @@ class TripItemViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         """DELETE /api/items/{id}/ - Delete an item (API #7)"""
-        if TripItemService.delete_item(int(pk)):
+        try:
+            item_id = int(pk)
+        except (ValueError, TypeError):
+            return Response(
+                {"error": "Invalid item ID format"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        if TripItemService.delete_item(item_id):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(
@@ -1216,7 +1224,11 @@ class TripItemViewSet(viewsets.ViewSet):
             generator._calculate_trip_cost(trip)
 
             return Response(
-                TripItemSerializer(updated_item).data,
+                {
+                    "message": "Item replaced successfully",
+                    "old_item": TripItemSerializer(item).data,
+                    "new_item": TripItemSerializer(updated_item).data
+                },
                 status=status.HTTP_200_OK
             )
 
@@ -1285,6 +1297,10 @@ def suggest_destinations(request):
     if not budget_level:
          budget_level = 'MEDIUM'
 
+    # Handle None season
+    if not season or season is None:
+        season = 'spring'
+    
     # Map English season to Persian
     season_map = {
         'spring': 'بهار',
@@ -1316,8 +1332,7 @@ def suggest_destinations(request):
             season=season_persian,
             budget_level=budget_level,
             travel_style=travel_style,
-            interests=interests,
-            region=region
+            interests=interests
         )
 
         return Response(

@@ -7,11 +7,13 @@ interface ApiConfig {
 export const useApi = (apiFunc: any, config: ApiConfig = { resetDataOnLoading: false }) => {
     const [data, setData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
+    const [errObj, setErrObj] = useState<any>(null);
     const [isLoading, setLoading] = useState<boolean>(false);
 
     const request = async (...args: any[]) => {
         setLoading(true);
         setError(null);
+        setErrObj(null);
 
         // Configurable reset logic
         if (config.resetDataOnLoading) {
@@ -27,11 +29,12 @@ export const useApi = (apiFunc: any, config: ApiConfig = { resetDataOnLoading: f
         } catch (err: any) {
             const msg = err.response?.data?.message || "خطایی در برقراری ارتباط رخ داد";
             setError(msg);
+            setErrObj(err);
             throw err;
         } finally {
             setLoading(false);
         }
     };
 
-    return { data, error, isLoading, request, setData };
+    return { data, error, errObj, isLoading, request, setData };
 };

@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useApi } from '@/hooks/useApi';
 import { useAuth } from '@/hooks/useAuth';
 import api, { tripApi, tripItemApi } from '@/services/api';
-import { getMockTrip } from '@/services/mockService';
-import { Trip, TripItemWithDay, BudgetLevel, AlternativePlace } from '@/types/trip';
+import { getMockItemAlternatives, getMockTrip } from '@/services/mockService';
+import { Trip, TripItemWithDay, BudgetLevel, AlternativePlace, CategoryType } from '@/types/trip';
 import Timeline from '@/components/Timeline';
 import Button from '@/components/ui/Button';
 import ConfirmDialog from '@/components/ui/ConfirmDialog';
@@ -15,6 +15,22 @@ import { BUDGET_LEVELS } from '@/containers/suggest-destination/constants';
 import { calculateCategoryCosts, formatPersianCurrency } from '@/utils/costCalculations';
 import { useNotification } from '@/contexts/NotificationContext';
 
+const getCategoryLabel = (category: string): string => {
+    const labels: Record<CategoryType, string> = {
+        STAY: 'اقامت',
+        HISTORICAL: 'تاریخی',
+        SHOPPING: 'خرید',
+        RECREATIONAL: 'تفریحی',
+        RELIGIOUS: 'مذهبی',
+        CULTURAL: 'فرهنگی',
+        NATURAL: 'طبیعی',
+        DINING: 'غذا',
+        STUDY: 'آموزشی',
+        EVENTS: 'رویداد'
+    };
+    return labels[category as CategoryType] || category;
+};
+
 const FinalizeTrip: React.FC = () => {
     const { tripId: tripIdParam } = useParams<{ tripId: string }>();
     const navigate = useNavigate();
@@ -24,6 +40,8 @@ const FinalizeTrip: React.FC = () => {
     const [tripData, setTripData] = useState<Trip | null>(null);
     const [isEditingBudget, setIsEditingBudget] = useState(false);
     const [selectedBudget, setSelectedBudget] = useState<BudgetLevel>('MEDIUM');
+    const [isEditingTitle, setIsEditingTitle] = useState(false);
+    const [editedTitle, setEditedTitle] = useState<string>('');
     const [isAuthDialogOpen, setIsAuthDialogOpen] = useState(false);
     const [confirmDialog, setConfirmDialog] = useState<{
         isOpen: boolean;
@@ -52,7 +70,7 @@ const FinalizeTrip: React.FC = () => {
         alternatives: [],
         isLoading: false,
     });
-    const { data, isLoading, error, request } = useApi(getMockTrip);
+    const { data, isLoading, error, request } = useApi(tripApi.getById);
 
     const tripId = Number(tripIdParam)
 
@@ -64,8 +82,11 @@ const FinalizeTrip: React.FC = () => {
 
     useEffect(() => {
         if (data) {
-            setTripData(data);
-            setSelectedBudget(data.budget_level || 'MEDIUM');
+            // Handle both direct Trip response and wrapped response
+            const trip = (data as any).trip || data;
+            setTripData(trip);
+            setSelectedBudget(trip.budget_level || 'MEDIUM');
+            setEditedTitle(trip.title || '');
         }
     }, [data]);
 
@@ -171,7 +192,7 @@ const FinalizeTrip: React.FC = () => {
             // Update dialog with alternatives
             setAlternativesDialog((prev) => ({
                 ...prev,
-                alternatives: response.data.alternatives || [],
+                alternatives: (response as any).data?.alternatives || [],
                 isLoading: false,
             }));
         } catch (err: any) {
@@ -204,13 +225,33 @@ const FinalizeTrip: React.FC = () => {
                     days: prev.days.map((day) => ({
                         ...day,
                         items: day.items.map((item) =>
-                            item.id === alternativesDialog.itemId ? response.data.new_item : item
+                            item.id === alternativesDialog.itemId
+                                ? {
+                                    ...response.data.new_item,
+                                    // Preserve the original start_time and end_time
+                                    start_time: item.start_time,
+                                    end_time: item.end_time
+                                }
+                                : item
                         ),
                     })),
                 };
             });
 
             success('مکان جایگزین با موفقیت اعمال شد');
+
+            // Update cost breakdown after item replacement
+            if (tripId) {
+                try {
+                    const costResponse = await tripApi.getCostBreakdown(tripId);
+                    setTripData((prev) => {
+                        if (!prev) return prev;
+                        return { ...prev, total_cost: costResponse.data.total_estimated_cost };
+                    });
+                } catch (costErr) {
+                    console.error('Failed to update cost breakdown:', costErr);
+                }
+            }
 
             // Close the dialog
             setAlternativesDialog({
@@ -299,9 +340,47 @@ const FinalizeTrip: React.FC = () => {
             });
             setIsEditingBudget(false);
             success('سطح بودجه با موفقیت به‌روزرسانی شد');
+
+            // Update cost breakdown after budget change
+            try {
+                const costResponse = await tripApi.getCostBreakdown(tripId);
+                setTripData((prev) => {
+                    if (!prev) return prev;
+                    return { ...prev, total_cost: costResponse.data.total_estimated_cost };
+                });
+            } catch (costErr) {
+                console.error('Failed to update cost breakdown:', costErr);
+            }
         } catch (err: any) {
             console.error('Failed to update budget level:', err);
             const errorMessage = err.response?.data?.error || 'خطا در به‌روزرسانی سطح بودجه';
+            showError(errorMessage);
+        }
+    };
+
+    const handleEditTitle = () => {
+        setIsEditingTitle(true);
+    };
+
+    const handleCancelTitleEdit = () => {
+        setIsEditingTitle(false);
+        setEditedTitle(tripData?.title || '');
+    };
+
+    const handleSaveTitle = async () => {
+        if (!tripId || !editedTitle.trim()) return;
+
+        try {
+            await tripApi.update(tripId, { title: editedTitle.trim() });
+            setTripData((prev) => {
+                if (!prev) return prev;
+                return { ...prev, title: editedTitle.trim() };
+            });
+            setIsEditingTitle(false);
+            success('عنوان سفر با موفقیت به‌روزرسانی شد');
+        } catch (err: any) {
+            console.error('Failed to update trip title:', err);
+            const errorMessage = err.response?.data?.error || 'خطا در به‌روزرسانی عنوان سفر';
             showError(errorMessage);
         }
     };
@@ -466,7 +545,7 @@ const FinalizeTrip: React.FC = () => {
                                     className="w-full px-6 py-2"
                                 >
                                     <i className="fa-solid fa-download ml-2"></i>
-                                    دانلود PDF (اختیاری)
+                                    دانلود PDF برنامه
                                 </Button>
 
                                 <Button
@@ -507,7 +586,8 @@ const FinalizeTrip: React.FC = () => {
 
                 {/* Header */}
                 <TripSummary
-                    city={tripData.city}
+                    title={tripData.title}
+                    city={tripData.city || undefined}
                     province={tripData.province}
                     start_date={tripData.start_date}
                     end_date={tripData.end_date}
@@ -563,7 +643,7 @@ const FinalizeTrip: React.FC = () => {
                             {/* Left: Budget + Category Bars */}
                             <div className="md:w-3/4 w-full">
                                 {/* Budget Level */}
-                                <div className="mb-6">
+                                <div className="mb-6 md:w-3/4">
                                     <div className="flex items-center justify-between mb-4">
                                         <h4 className="text-lg font-bold text-gray-800">سطح بودجه:</h4>
                                         <div className="flex gap-2">
@@ -620,12 +700,12 @@ const FinalizeTrip: React.FC = () => {
                                 </div>
 
                                 {/* Category Cost Bars */}
-                                <div className="space-y-4">
+                                <div className="space-y-2 md:w-3/4">
                                     {categoryCosts.map((catCost) => (
                                         <div key={catCost.category}>
                                             <div className="flex items-center justify-between mb-1">
                                                 <span className="text-sm font-semibold text-gray-700">
-                                                    {catCost.category}
+                                                    {getCategoryLabel(catCost.category)}
                                                 </span>
                                                 <span className="text-sm text-gray-600">
                                                     {formatPersianCurrency(catCost.totalCost)} تومان
@@ -633,7 +713,7 @@ const FinalizeTrip: React.FC = () => {
                                             </div>
                                             <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                                                 <div
-                                                    className="bg-gradient-to-r from-tile-cyan to-forest-green h-full rounded-full transition-all duration-300"
+                                                    className="bg-gradient-to-r from-tile-cyan to-forest-green h-full rounded-full transition-all duration-800"
                                                     style={{ width: `${catCost.percentage}%` }}
                                                 ></div>
                                             </div>
@@ -646,7 +726,54 @@ const FinalizeTrip: React.FC = () => {
                             </div>
 
                             {/* Right: Total + Save (separate column) */}
-                            <div className="md:w-1/4 w-full flex flex-col items-center justify-center justify-end">
+                            <div className="md:w-1/4 w-full flex flex-col items-center justify-between">
+                                {/* Title Edit Section */}
+                                <div className="w-full mb-6">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h4 className="text-lg font-bold text-gray-800">عنوان سفر:</h4>
+                                        <div className="flex gap-2">
+                                            {isEditingTitle ? (
+                                                <>
+                                                    <Button
+                                                        onClick={handleSaveTitle}
+                                                        variant="primary"
+                                                        className="px-4 py-1 text-sm"
+                                                    >
+                                                        تغییر
+                                                    </Button>
+                                                    <Button
+                                                        onClick={handleCancelTitleEdit}
+                                                        variant="cancel"
+                                                        className="px-4 py-1 text-sm"
+                                                    >
+                                                        انصراف
+                                                    </Button>
+                                                </>
+                                            ) : (
+                                                <Button
+                                                    onClick={handleEditTitle}
+                                                    variant="secondary"
+                                                    className="px-4 py-1 text-sm"
+                                                >
+                                                    <i className="fa-solid fa-edit ml-1"></i>
+                                                    تغییر
+                                                </Button>
+                                            )}
+                                        </div>
+                                    </div>
+                                    {isEditingTitle ? (
+                                        <input
+                                            type="text"
+                                            value={editedTitle}
+                                            onChange={(e) => setEditedTitle(e.target.value)}
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-persian-blue"
+                                            placeholder="عنوان سفر را وارد کنید"
+                                        />
+                                    ) : (
+                                        <p className="text-base text-gray-700">{tripData.title || 'بدون عنوان'}</p>
+                                    )}
+                                </div>
+
                                 <div className="text-center mb-6">
                                     <div className="text-sm text-gray-600 mb-2">مجموع تخمینی هزینه‌ها</div>
                                     <div className="text-2xl font-extrabold text-green-600">

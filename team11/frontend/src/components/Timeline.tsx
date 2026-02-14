@@ -71,7 +71,7 @@ const Timeline: React.FC<TimelineProps> = ({
     };
 
     // Constants
-    const totalMinutes = totalDays * 24 * 60;
+    const totalMinutes = (totalDays + 1) * 24 * 60;
     const timelineWidth = totalMinutes / MINUTES_PER_PIXEL;
 
     // Convert items to range sections (using pending changes if available)
@@ -176,7 +176,6 @@ const Timeline: React.FC<TimelineProps> = ({
 
         const pending = pendingChanges[editingItemId];
         if (pending) {
-            console.log(pending.startTime, pending.endTime)
             onItemTimeChange(editingItemId, pending.startTime, pending.endTime);
         }
 
@@ -252,7 +251,7 @@ const Timeline: React.FC<TimelineProps> = ({
                 }
             }, 100);
         }
-    }, [items.length]);
+    }, []);
 
     // Update visible day based on scroll position (center of container)
     useEffect(() => {
@@ -322,18 +321,19 @@ const Timeline: React.FC<TimelineProps> = ({
 
         if (!dateStr) {
             return (
-                <span className="inline-block bg-persian-blue text-white px-3 py-1 rounded shadow text-sm text-gray-700">{`روز ${visibleDay}`}</span>
+                <span className="inline-block bg-persian-blue text-white px-3 py-1 rounded shadow text-sm text-gray-700">{`روز ${visibleDay.toLocaleString('fa-IR')}`}</span>
             );
         }
 
         const gDate = new Date(dateStr);
         const weekday = persianWeekdays[gDate.getDay()];
-        const { jy, jm, jd } = toJalaali(gDate.getFullYear(), gDate.getMonth() + 1, gDate.getDate());
-        const jmStr = jm.toString().padStart(2, '0');
-        const jdStr = jd.toString().padStart(2, '0');
+        const { jm, jd } = toJalaali(gDate.getFullYear(), gDate.getMonth() + 1, gDate.getDate());
+        // Convert month and day to Persian digits
+        const jmPers = jm.toLocaleString('fa-IR', { minimumIntegerDigits: 2, useGrouping: false });
+        const jdPers = jd.toLocaleString('fa-IR', { minimumIntegerDigits: 2, useGrouping: false });
 
         return (
-            <span className={`inline-block bg-[${color}] text-white px-3 py-1 rounded shadow text-sm text-gray-700`}>{`روز ${visibleDay} - ${weekday} ${jmStr}/${jdStr}`}</span>
+            <span className={`inline-block bg-[${color}] text-white px-3 py-1 rounded shadow text-sm text-gray-700`}>{`روز ${visibleDay.toLocaleString('fa-IR')} - ${weekday} ${jmPers}/${jdPers}`}</span>
         );
     };
 
@@ -411,16 +411,17 @@ const Timeline: React.FC<TimelineProps> = ({
                                     <div
                                         onMouseEnter={() => setHoveredIndex(index)}
                                         onMouseLeave={() => setHoveredIndex((v) => (v === index ? null : v))}
-                                        className="relative"
+                                        className="relative group"
                                     >
+                                        {/* Left/Right scroll buttons inside the card, shown on hover */}
                                         {index < items.length - 1 && (
                                             <button
                                                 onClick={() => scrollToCard(index + 1)}
-                                                className={`absolute -left-8 top-1/2 transform -translate-y-1/2 bg-white border hover:cursor-pointer border-gray-300 rounded-full w-7 h-7 flex items-center justify-center shadow-sm transition-opacity hover:bg-gray-50 z-10 ${showArrows ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                                                className={`absolute left-2 top-1/2 -translate-y-1/2 bg-transparent p-0 m-0 border-none hover:cursor-pointer z-10 opacity-0 group-hover:opacity-100`}
                                                 aria-label="next"
                                             >
-                                                <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                                <svg className="w-7 h-7 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M15 19l-7-7 7-7" />
                                                 </svg>
                                             </button>
                                         )}
@@ -436,11 +437,11 @@ const Timeline: React.FC<TimelineProps> = ({
                                         {index > 0 && (
                                             <button
                                                 onClick={() => scrollToCard(index - 1)}
-                                                className={`absolute -right-8 top-1/2 transform -translate-y-1/2 bg-white  hover:cursor-pointer border-gray-300 rounded-full w-7 h-7 flex items-center justify-center shadow-sm transition-opacity hover:bg-gray-50 z-10 ${showArrows ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                                                className={`absolute right-2 top-1/2 -translate-y-1/2 bg-transparent p-0 m-0 border-none hover:cursor-pointer z-10 opacity-0 group-hover:opacity-100`}
                                                 aria-label="prev"
                                             >
-                                                <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                <svg className="w-7 h-7 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={4} d="M9 5l7 7-7 7" />
                                                 </svg>
                                             </button>
                                         )}
@@ -475,7 +476,9 @@ const Timeline: React.FC<TimelineProps> = ({
                                 endTime = `${normalizedHour.toString().padStart(2, '0')}:${endMinute.toString().padStart(2, '0')}`;
                             }
 
-                            const time = params.isStartThumb ? startTime : endTime;
+                            // Remove seconds if present (keep only HH:MM)
+                            let thumbTime = params.isStartThumb ? startTime : endTime;
+                            if (thumbTime.length > 5) thumbTime = thumbTime.slice(0, 5);
 
                             // Track which section is being actively dragged
                             if (params.isDragged && activeDragSectionIndex !== params.sectionIndex) {
@@ -531,7 +534,7 @@ const Timeline: React.FC<TimelineProps> = ({
                                             pointerEvents: 'none',
                                         }}
                                     >
-                                        {time}
+                                        {thumbTime}
                                     </div>
                                 </div>
                             );

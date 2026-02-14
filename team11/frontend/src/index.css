@@ -99,6 +99,11 @@
     @apply bg-persian-gold shadow-gold hover:bg-[#FFCA28] hover:-translate-y-0.5;
   }
 
+  .trip-row-hover:hover,
+  .trip-item-card-hover:hover {
+    border: 2px solid var(--color-tile-cyan) !important;
+  }
+
   .service-card:hover .card-icon {
     background: linear-gradient(135deg, var(--color-forest-green), var(--color-persian-blue));
     @apply text-white rotate-6 scale-110;
