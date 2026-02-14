@@ -21,10 +21,12 @@ interface AlternativesDialogProps {
 
 const getCategoryLabel = (category: CategoryType): string => {
     const labels: Record<CategoryType, string> = {
+        STAY: 'اقامت',
         HISTORICAL: 'تاریخی',
         SHOPPING: 'خرید',
         RECREATIONAL: 'تفریحی',
         RELIGIOUS: 'مذهبی',
+        CULTURAL: 'فرهنگی',
         NATURAL: 'طبیعی',
         DINING: 'غذا',
         STUDY: 'آموزشی',

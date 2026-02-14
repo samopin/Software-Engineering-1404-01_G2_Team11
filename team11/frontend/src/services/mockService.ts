@@ -274,7 +274,7 @@ export const getMockTripHistory = () => {
   });
 };
 
-export const getMockItemAlternatives = (itemId: number, max_results: number) => {
+export const getMockItemAlternatives = (itemId: number) => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

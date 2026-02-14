@@ -3,7 +3,7 @@ export type TripDensity = 'RELAXED' | 'BALANCED' | 'INTENSIVE';
 export type BudgetLevel = 'ECONOMY' | 'MEDIUM' | 'LUXURY';
 export type TripStatus = 'ACTIVE' | 'COMPLETED' | 'CANCELLED';
 export type ItemType = 'VISIT' | 'FOOD' | 'STAY' | 'TRANSPORT' | 'ACTIVITY';
-export type CategoryType = 'HISTORICAL' | 'SHOPPING' | 'RECREATIONAL' | 'RELIGIOUS' | 'NATURAL' | 'DINING' | 'STUDY' | 'EVENTS' | 'CULTURAL';
+export type CategoryType = 'HISTORICAL' | 'SHOPPING' | 'RECREATIONAL' | 'RELIGIOUS' | 'NATURAL' | 'DINING' | 'STUDY' | 'EVENTS' | 'CULTURAL' | 'STAY' ;
 
 export interface TripItem {
   id: number; // Changed to number as per API
@@ -58,6 +58,7 @@ export interface CreateTripPayload {
 export interface UpdateTripPayload {
   budget_level?: BudgetLevel;
   density?: TripDensity; // Optional field
+  title?: string; // Optional field for updating trip title
 }
 
 export interface UpdateTripItemPayload {

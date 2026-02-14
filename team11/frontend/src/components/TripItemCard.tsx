@@ -11,6 +11,7 @@ interface TripItemCardProps {
 
 const getCategoryLabel = (category: CategoryType): string => {
     const labels: Record<CategoryType, string> = {
+        STAY: 'اقامت',
         CULTURAL: 'فرهنگی',
         HISTORICAL: 'تاریخی',
         SHOPPING: 'خرید',

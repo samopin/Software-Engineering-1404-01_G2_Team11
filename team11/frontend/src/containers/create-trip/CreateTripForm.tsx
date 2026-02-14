@@ -211,6 +211,10 @@ const CreateTripForm = () => {
             if (formData?.endDate?.isBefore(date, 'day'))
               setFormData(prev => ({ ...prev, endDate: null }))
           }}
+          disabledDates={(current) => {
+            if (!current) return false;
+            return current.isBefore(new Date(), 'day');
+          }}
         />
         <DatePicker
           label="تاریخ پایان سفر"

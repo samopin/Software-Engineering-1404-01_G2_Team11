@@ -251,7 +251,7 @@ const Timeline: React.FC<TimelineProps> = ({
                 }
             }, 100);
         }
-    }, [items.length]);
+    }, []);
 
     // Update visible day based on scroll position (center of container)
     useEffect(() => {

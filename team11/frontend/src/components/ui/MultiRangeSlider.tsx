@@ -105,7 +105,7 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps> = ({
                             style={{
                                 width: "100%",
                                 height: "12px",
-                                boxShadow: 'rgba(30, 50, 43, 0.25) 0px 2px 3px -1px inset, rgba(0, 0, 0, 0.2) 0px 2px 36px -18px inset',
+                                boxShadow: 'rgba(30, 50, 43, 0.25) 0px -2px 1px -1px inset, rgba(0, 0, 0, 0.2) 0px 10px 3px -8px inset',
                                 borderRadius: "6px",
                                 background: getTrackBackground({
                                     values: flatValues,

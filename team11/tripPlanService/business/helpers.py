@@ -1,9 +1,12 @@
 import math
+import logging
 from typing import List, Dict, Optional
 
 # External services - will be implemented by Mohammad Hossein
 from externalServices.grpc.services.facility_client import FacilityClient
 from externalServices.grpc.services.recommendation_client import RecommendationClient
+
+logger = logging.getLogger(__name__)
 
 
 class DestinationSuggester:
@@ -125,9 +128,7 @@ class AlternativesProvider:
         # 1. Get original place info
         original = self.facility_client.get_place_by_id(original_place_id)
 
-
-
-        # 2. Search for similar places
+        # 2. Search for similar places (same category)
         alternatives = self.facility_client.search_places(
             province=province,
             city=city,
@@ -141,7 +142,25 @@ class AlternativesProvider:
             if p['id'] != original_place_id
         ]
 
-        # 4. Rank by distance from original
+        # 4. If not enough alternatives found, expand search to all categories in same province
+        if len(alternatives) < max_results:
+            logger.info(f"Only {len(alternatives)} alternatives found in category {category}, expanding search")
+            additional = self.facility_client.search_places(
+                province=province,
+                city=city,
+                categories=None,  # No category filter
+                limit=20
+            )
+            # Remove original and already found alternatives
+            existing_ids = {p['id'] for p in alternatives}
+            existing_ids.add(original_place_id)
+            additional = [
+                p for p in additional
+                if p['id'] not in existing_ids
+            ]
+            alternatives.extend(additional)
+
+        # 5. Rank by distance from original
         # if original.get('lat') and original.get('lng'):
         #     alternatives = self._rank_by_distance(
         #         alternatives,
