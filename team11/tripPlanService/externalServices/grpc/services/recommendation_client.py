@@ -32,6 +32,7 @@ class RecommendationClient:
                 'region_id': 'reg_isfahan',
                 'region_name': 'استان اصفهان',
                 'province': 'اصفهان',
+                'geographic_region': 'CENTRAL',
                 'description': 'نصف جهان با میراث صفوی غنی',
                 'image_url': 'https://example.com/isfahan.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -42,6 +43,7 @@ class RecommendationClient:
                 'region_id': 'reg_fars',
                 'region_name': 'استان فارس',
                 'province': 'فارس',
+                'geographic_region': 'SOUTH',
                 'description': 'تخت جمشید و میراث هخامنشی',
                 'image_url': 'https://example.com/fars.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -52,6 +54,7 @@ class RecommendationClient:
                 'region_id': 'reg_yazd',
                 'region_name': 'استان یزد',
                 'province': 'یزد',
+                'geographic_region': 'CENTRAL',
                 'description': 'شهر بادگیرها و معماری خشتی',
                 'image_url': 'https://example.com/yazd.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -62,6 +65,7 @@ class RecommendationClient:
                 'region_id': 'reg_gilan',
                 'region_name': 'استان گیلان',
                 'province': 'گیلان',
+                'geographic_region': 'NORTH',
                 'description': 'جنگل‌های سبز و طبیعت بکر شمال',
                 'image_url': 'https://example.com/gilan.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -72,6 +76,7 @@ class RecommendationClient:
                 'region_id': 'reg_mazandaran',
                 'region_name': 'استان مازندران',
                 'province': 'مازندران',
+                'geographic_region': 'NORTH',
                 'description': 'ساحل دریای خزر و جنگل‌های هیرکانی',
                 'image_url': 'https://example.com/mazandaran.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -82,6 +87,7 @@ class RecommendationClient:
                 'region_id': 'reg_tehran',
                 'region_name': 'استان تهران',
                 'province': 'تهران',
+                'geographic_region': 'CENTRAL',
                 'description': 'پایتخت پرجنب‌وجوش ایران',
                 'image_url': 'https://example.com/tehran.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -92,6 +98,7 @@ class RecommendationClient:
                 'region_id': 'reg_khorasan_razavi',
                 'region_name': 'استان خراسان رضوی',
                 'province': 'خراسان رضوی',
+                'geographic_region': 'EAST',
                 'description': 'شهر مقدس مشهد و حرم امام رضا',
                 'image_url': 'https://example.com/mashhad.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -102,6 +109,7 @@ class RecommendationClient:
                 'region_id': 'reg_kerman',
                 'region_name': 'استان کرمان',
                 'province': 'کرمان',
+                'geographic_region': 'EAST',
                 'description': 'کویر لوت و طبیعت بی‌نظیر',
                 'image_url': 'https://example.com/kerman.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -112,6 +120,7 @@ class RecommendationClient:
                 'region_id': 'reg_hormozgan',
                 'region_name': 'استان هرمزگان',
                 'province': 'هرمزگان',
+                'geographic_region': 'SOUTH',
                 'description': 'جزایر خلیج فارس و قشم',
                 'image_url': 'https://example.com/hormozgan.jpg',
                 'best_seasons': ['پاییز', 'زمستان', 'بهار'],
@@ -122,6 +131,7 @@ class RecommendationClient:
                 'region_id': 'reg_khuzestan',
                 'region_name': 'استان خوزستان',
                 'province': 'خوزستان',
+                'geographic_region': 'SOUTH',
                 'description': 'تمدن عیلام و شوش باستانی',
                 'image_url': 'https://example.com/khuzestan.jpg',
                 'best_seasons': ['پاییز', 'زمستان', 'بهار'],
@@ -132,6 +142,7 @@ class RecommendationClient:
                 'region_id': 'reg_azarbaijan_sharqi',
                 'region_name': 'استان آذربایجان شرقی',
                 'province': 'آذربایجان شرقی',
+                'geographic_region': 'WEST',
                 'description': 'تبریز و بازار تاریخی یونسکو',
                 'image_url': 'https://example.com/tabriz.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -142,6 +153,7 @@ class RecommendationClient:
                 'region_id': 'reg_hamedan',
                 'region_name': 'استان همدان',
                 'province': 'همدان',
+                'geographic_region': 'WEST',
                 'description': 'غار علیصدر و آرامگاه بوعلی',
                 'image_url': 'https://example.com/hamedan.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -152,6 +164,7 @@ class RecommendationClient:
                 'region_id': 'reg_lorestan',
                 'region_name': 'استان لرستان',
                 'province': 'لرستان',
+                'geographic_region': 'WEST',
                 'description': 'آبشارهای زیبا و طبیعت کوهستانی',
                 'image_url': 'https://example.com/lorestan.jpg',
                 'best_seasons': ['بهار', 'تابستان'],
@@ -162,6 +175,7 @@ class RecommendationClient:
                 'region_id': 'reg_bushehr',
                 'region_name': 'استان بوشهر',
                 'province': 'بوشهر',
+                'geographic_region': 'SOUTH',
                 'description': 'معماری خلیج فارس و ساحل جنوب',
                 'image_url': 'https://example.com/bushehr.jpg',
                 'best_seasons': ['پاییز', 'زمستان', 'بهار'],
@@ -172,6 +186,7 @@ class RecommendationClient:
                 'region_id': 'reg_sistan',
                 'region_name': 'استان سیستان و بلوچستان',
                 'province': 'سیستان و بلوچستان',
+                'geographic_region': 'EAST',
                 'description': 'فرهنگ بلوچی و طبیعت منحصر به فرد',
                 'image_url': 'https://example.com/sistan.jpg',
                 'best_seasons': ['پاییز', 'زمستان', 'بهار'],
@@ -182,6 +197,7 @@ class RecommendationClient:
                 'region_id': 'reg_zanjan',
                 'region_name': 'استان زنجان',
                 'province': 'زنجان',
+                'geographic_region': 'WEST',
                 'description': 'غار کتله‌خور و گنبد سلطانیه',
                 'image_url': 'https://example.com/zanjan.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -192,6 +208,7 @@ class RecommendationClient:
                 'region_id': 'reg_semnan',
                 'region_name': 'استان سمنان',
                 'province': 'سمنان',
+                'geographic_region': 'EAST',
                 'description': 'کویر مرنجاب و کاروانسرا',
                 'image_url': 'https://example.com/semnan.jpg',
                 'best_seasons': ['پاییز', 'زمستان', 'بهار'],
@@ -202,6 +219,7 @@ class RecommendationClient:
                 'region_id': 'reg_qazvin',
                 'region_name': 'استان قزوین',
                 'province': 'قزوین',
+                'geographic_region': 'WEST',
                 'description': 'قلعه الموت و تاریخ حسن صباح',
                 'image_url': 'https://example.com/qazvin.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -212,6 +230,7 @@ class RecommendationClient:
                 'region_id': 'reg_qom',
                 'region_name': 'استان قم',
                 'province': 'قم',
+                'geographic_region': 'CENTRAL',
                 'description': 'شهر مذهبی و حرم حضرت معصومه',
                 'image_url': 'https://example.com/qom.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -222,6 +241,7 @@ class RecommendationClient:
                 'region_id': 'reg_markazi',
                 'region_name': 'استان مرکزی',
                 'province': 'مرکزی',
+                'geographic_region': 'CENTRAL',
                 'description': 'تپه نوش جان و آثار باستانی',
                 'image_url': 'https://example.com/markazi.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -232,6 +252,7 @@ class RecommendationClient:
                 'region_id': 'reg_ilam',
                 'region_name': 'استان ایلام',
                 'province': 'ایلام',
+                'geographic_region': 'WEST',
                 'description': 'آبشارها و طبیعت زاگرس',
                 'image_url': 'https://example.com/ilam.jpg',
                 'best_seasons': ['بهار', 'تابستان'],
@@ -242,6 +263,7 @@ class RecommendationClient:
                 'region_id': 'reg_kohgiluyeh',
                 'region_name': 'استان کهگیلویه و بویراحمد',
                 'province': 'کهگیلویه و بویراحمد',
+                'geographic_region': 'SOUTH',
                 'description': 'دریاچه و آبشار مارگون',
                 'image_url': 'https://example.com/kohgiluyeh.jpg',
                 'best_seasons': ['بهار', 'تابستان'],
@@ -252,6 +274,7 @@ class RecommendationClient:
                 'region_id': 'reg_chaharmahal',
                 'region_name': 'استان چهارمحال و بختیاری',
                 'province': 'چهارمحال و بختیاری',
+                'geographic_region': 'CENTRAL',
                 'description': 'دشت‌های سبز و کوهستان بختیاری',
                 'image_url': 'https://example.com/chaharmahal.jpg',
                 'best_seasons': ['بهار', 'تابستان'],
@@ -262,6 +285,7 @@ class RecommendationClient:
                 'region_id': 'reg_kurdistan',
                 'region_name': 'استان کردستان',
                 'province': 'کردستان',
+                'geographic_region': 'WEST',
                 'description': 'دریاچه زریوار و قوری قلعه',
                 'image_url': 'https://example.com/kurdistan.jpg',
                 'best_seasons': ['بهار', 'تابستان'],
@@ -272,6 +296,7 @@ class RecommendationClient:
                 'region_id': 'reg_kermanshah',
                 'region_name': 'استان کرمانشاه',
                 'province': 'کرمانشاه',
+                'geographic_region': 'WEST',
                 'description': 'طاق بستان و بیستون یونسکو',
                 'image_url': 'https://example.com/Kermanshah.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -282,6 +307,7 @@ class RecommendationClient:
                 'region_id': 'reg_ardabil',
                 'region_name': 'استان اردبیل',
                 'province': 'اردبیل',
+                'geographic_region': 'NORTH',
                 'description': 'کوه سبلان و چشمه‌های آبگرم',
                 'image_url': 'https://example.com/ardabil.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -292,6 +318,7 @@ class RecommendationClient:
                 'region_id': 'reg_azarbaijan_gharbi',
                 'region_name': 'استان آذربایجان غربی',
                 'province': 'آذربایجان غربی',
+                'geographic_region': 'WEST',
                 'description': 'کلیساهای ارامنه و تخت سلیمان',
                 'image_url': 'https://example.com/west-azarbaijan.jpg',
                 'best_seasons': ['بهار', 'تابستان'],
@@ -302,6 +329,7 @@ class RecommendationClient:
                 'region_id': 'reg_golestan',
                 'region_name': 'استان گلستان',
                 'province': 'گلستان',
+                'geographic_region': 'NORTH',
                 'description': 'جنگل‌های هیرکانی و پارک ملی',
                 'image_url': 'https://example.com/golestan.jpg',
                 'best_seasons': ['بهار', 'تابستان', 'پاییز'],
@@ -312,6 +340,7 @@ class RecommendationClient:
                 'region_id': 'reg_alborz',
                 'region_name': 'استان البرز',
                 'province': 'البرز',
+                'geographic_region': 'CENTRAL',
                 'description': 'پیست اسکی دیزین و کوهستان البرز',
                 'image_url': 'https://example.com/alborz.jpg',
                 'best_seasons': ['زمستان', 'بهار', 'پاییز'],
@@ -322,6 +351,7 @@ class RecommendationClient:
                 'region_id': 'reg_khorasan_north',
                 'region_name': 'استان خراسان شمالی',
                 'province': 'خراسان شمالی',
+                'geographic_region': 'EAST',
                 'description': 'آبشار زیارت و طبیعت بکر',
                 'image_url': 'https://example.com/north-khorasan.jpg',
                 'best_seasons': ['بهار', 'تابستان'],
@@ -332,6 +362,7 @@ class RecommendationClient:
                 'region_id': 'reg_khorasan_south',
                 'region_name': 'استان خراسان جنوبی',
                 'province': 'خراسان جنوبی',
+                'geographic_region': 'EAST',
                 'description': 'قلعه فورگ و باغ اکبریه',
                 'image_url': 'https://example.com/south-khorasan.jpg',
                 'best_seasons': ['بهار', 'پاییز'],
@@ -433,20 +464,22 @@ class RecommendationClient:
             self,
             budget_limit: str,
             season: str,
-            interests: List[str] = None
+            interests: List[str] = None,
+            region: Optional[str] = None
     ) -> List[Dict]:
         """
-        API 2: Suggest regions based on budget, season, and interests
+        API 2: Suggest regions based on budget, season, interests, and geographic region
 
         Args:
             budget_limit: ECONOMY, MEDIUM, LUXURY, UNLIMITED
             season: بهار, تابستان, پاییز, زمستان
             interests: List of Persian interest keywords (optional)
+            region: Geographic region filter (optional): NORTH, SOUTH, EAST, WEST, CENTRAL
 
         Returns:
             List of regions with match scores
         """
-        logger.info(f"Suggesting regions for {season} season with {budget_limit} budget and interests: {interests}")
+        logger.info(f"Suggesting regions for {season} season with {budget_limit} budget, interests: {interests}, region: {region}")
 
         # Interest to province mapping for variety (ordered by relevance)
         interest_province_boost = {
@@ -457,25 +490,37 @@ class RecommendationClient:
             'مذهبی': ['خراسان رضوی', 'قم', 'فارس', 'کرمانشاه', 'همدان'],
             'ماجراجویی': ['اردبیل', 'البرز', 'لرستان', 'کهگیلویه و بویراحمد', 'کرمان'],
             'شهری': ['تهران', 'آذربایجان شرقی', 'فارس', 'اصفهان', 'خراسان رضوی'],
-            'غذا': ['گیلان', 'آذربایجان شرقی', 'مازندران', 'اصفهان', 'فارس']
+            'غذا': ['گیلان', 'آذربایجان شرقی', 'مازندران', 'اصفهان', 'فارس'],
+            'تفریحی': ['مازندران', 'گیلان', 'فارس', 'هرمزگان', 'اصفهان'],
+            'خرید': ['تهران', 'اصفهان', 'آذربایجان شرقی', 'فارس', 'هرمزگان'],
+            'آموزشی': ['اصفهان', 'تهران', 'فارس', 'خراسان رضوی', 'آذربایجان شرقی'],
+            'رویداد': ['فارس', 'اصفهان', 'گیلان', 'مازندران', 'خراسان رضوی'],
         }
 
         suggested_regions = []
 
-        for region in self.regions:
+        for r in self.regions:
             # Check budget suitability
-            if budget_limit not in region['budget_suitability'] and budget_limit != 'UNLIMITED':
+            if budget_limit not in r['budget_suitability'] and budget_limit != 'UNLIMITED':
                 continue
 
             # Start with a lower base to make interest boosts more impactful
-            match_score = region['base_score'] * 0.7  # Reduce base score impact
+            match_score = r['base_score'] * 0.7  # Reduce base score impact
+
+            # Geographic region: strong boost if user selected a region and this province matches
+            geo_region = r.get('geographic_region')
+            if region and geo_region:
+                if region.upper() == geo_region:
+                    match_score += 50  # so selected region (e.g. NORTH) dominates top results
+                else:
+                    match_score -= 30  # penalty so other regions don't crowd top 3
 
             # Season bonus
-            if season in region['best_seasons']:
+            if season in r['best_seasons']:
                 match_score += 15
 
             # Budget exact match bonus
-            if budget_limit in region['budget_suitability']:
+            if budget_limit in r['budget_suitability']:
                 match_score += 5
 
             # Interest-based boost (MUCH higher weight for matching interests)
@@ -484,9 +529,9 @@ class RecommendationClient:
                 for interest in interests:
                     if interest in interest_province_boost:
                         preferred_provinces = interest_province_boost[interest]
-                        if region['province'] in preferred_provinces:
+                        if r['province'] in preferred_provinces:
                             # Very high boost for interest matches
-                            position = preferred_provinces.index(region['province'])
+                            position = preferred_provinces.index(r['province'])
                             interest_boost = 40 - (position * 4)  # 40, 36, 32, 28, 24
                             match_score += interest_boost
                             has_match = True
@@ -496,13 +541,13 @@ class RecommendationClient:
                     match_score -= 25
 
             suggested_regions.append({
-                'region_id': region['region_id'],
-                'region_name': region['region_name'],
-                'province': region['province'],
-                'description': region['description'],
+                'region_id': r['region_id'],
+                'region_name': r['region_name'],
+                'province': r['province'],
+                'description': r['description'],
                 'match_score': min(100, max(0, int(match_score))),  # Clamp between 0-100
-                'image_url': region['image_url'],
-                'best_seasons': region.get('best_seasons', [season])
+                'image_url': r['image_url'],
+                'best_seasons': r.get('best_seasons', [season])
             })
 
         # Sort by match score with some randomization for variety

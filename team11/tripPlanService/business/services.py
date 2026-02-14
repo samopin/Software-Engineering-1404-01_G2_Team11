@@ -519,7 +519,7 @@ wiki_client = WikiClient()
 class SuggestionService:
 
     @staticmethod
-    def generate_destination_suggestions(season, budget_level, travel_style, interests):
+    def generate_destination_suggestions(season, budget_level, travel_style, interests, region=None):
         """
         Generate destination suggestions using mocked clients
 
@@ -528,6 +528,7 @@ class SuggestionService:
             budget_level: ECONOMY, MEDIUM, LUXURY, UNLIMITED
             travel_style: SOLO, COUPLE, FAMILY, FRIENDS, BUSINESS
             interests: List of Persian interest keywords
+            region: Optional geographic region (NORTH, SOUTH, EAST, WEST, CENTRAL)
 
         Returns:
             List of destination suggestions with comprehensive details
@@ -551,13 +552,14 @@ class SuggestionService:
         else:
             persian_travel_style = travel_style_map.get(travel_style, 'تاریخی')
 
-        # Step 1: Get recommended regions from RecommendationClient
+        # Step 1: Get recommended regions from RecommendationClient (با فیلتر منطقه)
         logger.info(
-            f"Getting region suggestions for season={season}, budget={budget_level}, interests={effective_interests}")
+            f"Getting region suggestions for season={season}, budget={budget_level}, interests={effective_interests}, region={region}")
         regions = recommendation_client.get_suggested_regions(
             budget_limit=budget_level,
             season=season,
-            interests=effective_interests
+            interests=effective_interests,
+            region=region
         )
 
         # Take top 3 regions

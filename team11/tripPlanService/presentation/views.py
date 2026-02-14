@@ -1326,13 +1326,30 @@ def suggest_destinations(request):
     if travel_style not in valid_styles:
         travel_style = 'SOLO'
 
+    # نگاشت علایق انگلیسی (فرانت) به فارسی برای سرویس پیشنهاد
+    interest_english_to_persian = {
+        'HISTORICAL': 'تاریخی',
+        'RECREATIONAL': 'تفریحی',
+        'RELIGIOUS': 'مذهبی',
+        'ART_CULTURE': 'فرهنگی',
+        'SHOPPING': 'خرید',
+        'NATURAL': 'طبیعت',
+        'DINING': 'غذا',
+        'STUDY': 'آموزشی',
+        'EVENTS': 'رویداد',
+    }
+    interests_persian = [interest_english_to_persian.get(i, i) for i in (interests or [])]
+    # اگر مقدار از قبل فارسی بود (مثلاً علاقهٔ دستی) همان بماند
+    interests_clean = [x for x in interests_persian if x]
+
     try:
-        # 2. پیشنهاد مقصدها بر اساس پارامترها
+        # 2. پیشنهاد مقصدها بر اساس پارامترها (شامل منطقهٔ جغرافیایی)
         suggestions = SuggestionService.generate_destination_suggestions(
             season=season_persian,
             budget_level=budget_level,
             travel_style=travel_style,
-            interests=interests
+            interests=interests_clean,
+            region=region
         )
 
         return Response(
