@@ -71,7 +71,7 @@ const Timeline: React.FC<TimelineProps> = ({
     };
 
     // Constants
-    const totalMinutes = totalDays * 24 * 60;
+    const totalMinutes = (totalDays + 1) * 24 * 60;
     const timelineWidth = totalMinutes / MINUTES_PER_PIXEL;
 
     // Convert items to range sections (using pending changes if available)
@@ -176,7 +176,6 @@ const Timeline: React.FC<TimelineProps> = ({
 
         const pending = pendingChanges[editingItemId];
         if (pending) {
-            console.log(pending.startTime, pending.endTime)
             onItemTimeChange(editingItemId, pending.startTime, pending.endTime);
         }
 
@@ -252,7 +251,7 @@ const Timeline: React.FC<TimelineProps> = ({
                 }
             }, 100);
         }
-    }, [items.length]);
+    }, []);
 
     // Update visible day based on scroll position (center of container)
     useEffect(() => {

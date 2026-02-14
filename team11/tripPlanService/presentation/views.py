@@ -1224,7 +1224,11 @@ class TripItemViewSet(viewsets.ViewSet):
             generator._calculate_trip_cost(trip)
 
             return Response(
-                TripItemSerializer(updated_item).data,
+                {
+                    "message": "Item replaced successfully",
+                    "old_item": TripItemSerializer(item).data,
+                    "new_item": TripItemSerializer(updated_item).data
+                },
                 status=status.HTTP_200_OK
             )
 

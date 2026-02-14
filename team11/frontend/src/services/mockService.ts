@@ -294,69 +294,134 @@ export const getMockItemAlternatives = (itemId: number) => {
               id: "place_005",
               title: "باغ چهلستون",
               category: "HISTORICAL",
-              address: "اصفهان، خیابان استانداری",
+              address: "اصفهان، خیابان استانداری، نبش چهارباغ بالا",
               lat: 32.6612,
               lng: 51.6697,
               entry_fee: 150000,
               price_tier: "BUDGET",
               rating: 4.6,
               distance: 1.2,
-              recommendation_reason: "نزدیک‌ترین جاذبه مشابه"
+              recommendation_reason: "نزدیک‌ترین جاذبه مشابه با دسترسی آسان"
             },
             {
               id: "place_006",
               title: "کاخ عالی‌قاپو",
               category: "HISTORICAL",
-              address: "اصفهان، میدان نقش جهان، ضلع غربی",
+              address: "اصفهان، میدان نقش جهان، ضلع غربی میدان",
               lat: 32.6551,
               lng: 51.6772,
               entry_fee: 200000,
               price_tier: "BUDGET",
               rating: 4.8,
               distance: 0.3,
-              recommendation_reason: "بالاترین امتیاز کاربران"
+              recommendation_reason: "بالاترین امتیاز کاربران و نمای عالی از میدان"
             },
             {
               id: "place_007",
               title: "مسجد جامع اصفهان",
-              category: "HISTORICAL",
-              address: "اصفهان، خیابان حاتم",
+              category: "RELIGIOUS",
+              address: "اصفهان، خیابان حاتم، کوچه مسجد جامع",
               lat: 32.6720,
               lng: 51.6854,
               entry_fee: 0,
               price_tier: "FREE",
               rating: 4.5,
               distance: 2.1,
-              recommendation_reason: "بازدید رایگان"
+              recommendation_reason: "بازدید رایگان و کهن‌ترین مسجد جامع ایران"
             },
             {
               id: "place_008",
               title: "کلیسای بیت‌اللحم",
-              category: "HISTORICAL",
-              address: "اصفهان، جلفا، خیابان نظر",
+              category: "RELIGIOUS",
+              address: "اصفهان، جلفا، خیابان نظر، کوی هفت‌تنان",
               lat: 32.6375,
               lng: 51.6514,
               entry_fee: 100000,
               price_tier: "BUDGET",
               rating: 4.4,
               distance: 2.5,
-              recommendation_reason: "مقرون‌به‌صرفه"
+              recommendation_reason: "مقرون‌به‌صرفه با نقاشی‌های زیبای دیواری"
             },
             {
               id: "place_009",
               title: "کاخ هشت‌بهشت",
               category: "HISTORICAL",
-              address: "اصفهان، خیابان چهارباغ عباسی",
+              address: "اصفهان، خیابان چهارباغ عباسی، باغ بلبل",
               lat: 32.6564,
               lng: 51.6720,
               entry_fee: 180000,
               price_tier: "BUDGET",
               rating: 4.3,
               distance: 0.8,
-              recommendation_reason: "در فاصله 0.8 کیلومتری"
+              recommendation_reason: "در فاصله پیاده‌روی با باغ زیبا"
+            },
+            {
+              id: "place_010",
+              title: "عمارت عالی‌قاپوچه",
+              category: "HISTORICAL",
+              address: "اصفهان، خیابان سپه، کوچه کمال‌الملک",
+              lat: 32.6589,
+              lng: 51.6745,
+              entry_fee: 120000,
+              price_tier: "BUDGET",
+              rating: 4.2,
+              distance: 1.5,
+              recommendation_reason: "کمتر شناخته‌شده اما معماری منحصر‌به‌فرد صفوی"
+            },
+            {
+              id: "place_011",
+              title: "بازار قیصریه",
+              category: "SHOPPING",
+              address: "اصفهان، میدان نقش جهان، ضلع شمالی",
+              lat: 32.6570,
+              lng: 51.6783,
+              entry_fee: 0,
+              price_tier: "FREE",
+              rating: 4.7,
+              distance: 0.2,
+              recommendation_reason: "ورود رایگان و تجربه بازار سنتی ایرانی"
+            },
+            {
+              id: "place_012",
+              title: "موزه موسیقی",
+              category: "STUDY",
+              address: "اصفهان، خیابان چهارباغ عباسی، عمارت هاشمی",
+              lat: 32.6523,
+              lng: 51.6701,
+              entry_fee: 250000,
+              price_tier: "MODERATE",
+              rating: 4.1,
+              distance: 1.8,
+              recommendation_reason: "تجربه منحصر‌به‌فرد موسیقی سنتی ایرانی"
+            },
+            {
+              id: "place_013",
+              title: "پارک نقش جهان",
+              category: "RECREATIONAL",
+              address: "اصفهان، حاشیه باغستان، کنار رودخانه زاینده‌رود",
+              lat: 32.6498,
+              lng: 51.6695,
+              entry_fee: 0,
+              price_tier: "FREE",
+              rating: 4.0,
+              distance: 1.0,
+              recommendation_reason: "محیط آرام برای استراحت و پیک‌نیک"
+            },
+            {
+              id: "place_014",
+              title: "خانه تیموری‌ها",
+              category: "HISTORICAL",
+              address: "اصفهان، محله جلفا، کوچه قدیمی تیموری",
+              lat: 32.6401,
+              lng: 51.6548,
+              entry_fee: 350000,
+              price_tier: "MODERATE",
+              rating: 4.9,
+              distance: 2.0,
+              recommendation_reason: "نمونه کامل معماری دوره قاجار با راهنمای تخصصی"
             }
           ],
-          count: 5
+          count: 10
         }
       });
     }, 600);

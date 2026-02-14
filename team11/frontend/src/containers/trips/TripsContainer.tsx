@@ -120,7 +120,6 @@ const TripsContainer: React.FC = () => {
     if (errObj) {
         // Use errObj for error details
         const isUnauthorized = typeof errObj === 'object' && errObj !== null && 'response' in errObj && (errObj as any).response?.status === 401;
-        console.log(errObj);
         if (isUnauthorized) {
             return (
                 <div className="flex items-center justify-center min-h-[50vh]">

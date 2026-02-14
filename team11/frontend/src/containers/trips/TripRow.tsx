@@ -43,10 +43,14 @@ const TripRow: React.FC<TripRowProps> = ({ trip, onDelete, onExportPDF }) => {
 
     const getStatusLabel = (status: string) => {
         switch (status.toUpperCase()) {
+            case 'DRAFT':
+                return 'پیش‌نویس';
             case 'ACTIVE':
                 return 'فعال';
             case 'COMPLETED':
                 return 'تکمیل شده';
+            case 'FINALIZED':
+                return 'نهایی شده';
             case 'CANCELLED':
                 return 'لغو شده';
             default:
@@ -100,13 +104,13 @@ const TripRow: React.FC<TripRowProps> = ({ trip, onDelete, onExportPDF }) => {
                             </div>
 
                             {/* Travel Style */}
-                            {trip.style && (
+                            {trip.travel_style && (
                                 <div className="flex items-center gap-2 text-sm">
                                     <i className="fa-solid fa-users text-leaf-green"></i>
                                     <div className="flex gap-3 items-center">
                                         <span className="text-xs text-mountain-grey/70">سبک سفر:</span>
                                         <span className="font-medium text-text-dark">
-                                            {TRAVEL_STYLES_MAP[trip.style.toUpperCase()] || trip.style}
+                                            {TRAVEL_STYLES_MAP[trip.travel_style.toUpperCase()] || trip.travel_style}
                                         </span>
                                     </div>
                                 </div>

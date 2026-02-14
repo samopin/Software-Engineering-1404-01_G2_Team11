@@ -86,6 +86,51 @@ class FacilityClient:
                 'opening_hours': {'daily': '06:00-21:00'},
                 'rating': 4.6, 'review_count': 7800
             },
+            {
+                'id': 'place_tehran_005',
+                'title': 'موزه ملی ایران',
+                'category': 'CULTURAL',
+                'province': 'تهران',
+                'location': 'تهران',
+                'address': 'تهران، خیابان امام خمینی، موزه ملی ایران',
+                'lat': 35.6880, 'lng': 51.4158,
+                'entry_fee': 200000,
+                'price_tier': 'BUDGET',
+                'description': 'موزه باستان‌شناسی با آثار تاریخی ایران',
+                'images': ['https://example.com/national-museum.jpg'],
+                'opening_hours': {'daily': '09:00-17:00'},
+                'rating': 4.7, 'review_count': 9200
+            },
+            {
+                'id': 'place_tehran_006',
+                'title': 'رستوران دیزی سنتی',
+                'category': 'DINING',
+                'province': 'تهران',
+                'location': 'تهران',
+                'address': 'تهران، خیابان ولیعصر، رستوران دیزی',
+                'lat': 35.7200, 'lng': 51.4180,
+                'entry_fee': 0,
+                'price_tier': 'BUDGET',
+                'description': 'رستوران سنتی با دیزی اصیل تهرانی',
+                'images': ['https://example.com/dizi-restaurant.jpg'],
+                'opening_hours': {'daily': '11:00-22:00'},
+                'rating': 4.4, 'review_count': 6500
+            },
+            {
+                'id': 'place_tehran_007',
+                'title': 'پارک آب و آتش',
+                'category': 'RECREATIONAL',
+                'province': 'تهران',
+                'location': 'تهران',
+                'address': 'تهران، شهرک غرب، پارک آب و آتش',
+                'lat': 35.7583, 'lng': 51.3753,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'پارک مدرن با طراحی منحصر به فرد',
+                'images': ['https://example.com/ab-o-atash-park.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.5, 'review_count': 8300
+            },
 
             # Isfahan Province
             {
@@ -598,6 +643,66 @@ class FacilityClient:
                 'images': ['https://example.com/kaluts.jpg'],
                 'opening_hours': {'24/7': True},
                 'rating': 4.9, 'review_count': 5600
+            },
+            {
+                'id': 'place_kerman_001b',
+                'title': 'کویر لوت',
+                'category': 'NATURAL',
+                'province': 'کرمان',
+                'location': 'شهداد',
+                'address': 'کرمان، شهداد، کویر لوت',
+                'lat': 30.5200, 'lng': 58.4800,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'گرم‌ترین نقطه کره زمین و میراث جهانی یونسکو',
+                'images': ['https://example.com/dasht-lut.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.8, 'review_count': 4200
+            },
+            {
+                'id': 'place_kerman_001c',
+                'title': 'چشمه‌های آبگرم گنو',
+                'category': 'NATURAL',
+                'province': 'کرمان',
+                'location': 'کرمان',
+                'address': 'کرمان، روستای گنو، چشمه‌های آبگرم',
+                'lat': 30.4300, 'lng': 57.0900,
+                'entry_fee': 150000,
+                'price_tier': 'BUDGET',
+                'description': 'چشمه‌های آبگرم درمانی در کنار کویر',
+                'images': ['https://example.com/genu-springs.jpg'],
+                'opening_hours': {'daily': '06:00-22:00'},
+                'rating': 4.6, 'review_count': 2800
+            },
+            {
+                'id': 'place_kerman_001d',
+                'title': 'دریاچه نمک سیرجان',
+                'category': 'NATURAL',
+                'province': 'کرمان',
+                'location': 'سیرجان',
+                'address': 'کرمان، سیرجان، دریاچه نمک',
+                'lat': 29.4500, 'lng': 55.6800,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'دریاچه نمک زیبا با منظره خیره‌کننده',
+                'images': ['https://example.com/sirjan-salt-lake.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.5, 'review_count': 1900
+            },
+            {
+                'id': 'place_kerman_001e',
+                'title': 'دره راگه',
+                'category': 'NATURAL',
+                'province': 'کرمان',
+                'location': 'راور',
+                'address': 'کرمان، راور، دره راگه',
+                'lat': 31.2600, 'lng': 56.8050,
+                'entry_fee': 200000,
+                'price_tier': 'BUDGET',
+                'description': 'دره‌ای زیبا با صخره‌های رنگارنگ',
+                'images': ['https://example.com/rageh-valley.jpg'],
+                'opening_hours': {'daily': '07:00-19:00'},
+                'rating': 4.7, 'review_count': 3100
             },
             {
                 'id': 'place_kerman_002',
@@ -1942,6 +2047,713 @@ class FacilityClient:
                 'images': ['https://example.com/birjand-restaurant.jpg'],
                 'opening_hours': {'daily': '11:00-22:00'},
                 'rating': 4.3, 'review_count': 1400
+            },
+
+            # Additional Tehran Province entries
+            {
+                'id': 'place_tehran_008',
+                'title': 'موزه رضا عباسی',
+                'category': 'CULTURAL',
+                'province': 'تهران',
+                'location': 'تهران',
+                'address': 'تهران، خیابان شریعتی، موزه رضا عباسی',
+                'lat': 35.7310, 'lng': 51.4490,
+                'entry_fee': 150000,
+                'price_tier': 'BUDGET',
+                'description': 'موزه هنرهای اسلامی و ایرانی',
+                'images': ['https://example.com/reza-abbasi-museum.jpg'],
+                'opening_hours': {'daily': '09:00-17:00'},
+                'rating': 4.7, 'review_count': 4200
+            },
+            {
+                'id': 'place_tehran_009',
+                'title': 'باغ کتاب',
+                'category': 'CULTURAL',
+                'province': 'تهران',
+                'location': 'تهران',
+                'address': 'تهران، عباس آباد، باغ کتاب',
+                'lat': 35.7050, 'lng': 51.4360,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'فضای فرهنگی و کتابخانه بزرگ',
+                'images': ['https://example.com/bagh-ketab.jpg'],
+                'opening_hours': {'daily': '09:00-21:00'},
+                'rating': 4.6, 'review_count': 8500
+            },
+            {
+                'id': 'place_tehran_010',
+                'title': 'هتل اسپیناس پالاس',
+                'category': 'STAY',
+                'province': 'تهران',
+                'location': 'تهران',
+                'address': 'تهران، ولیعصر، هتل اسپیناس',
+                'lat': 35.7320, 'lng': 51.4180,
+                'entry_fee': 8000000,
+                'price_tier': 'LUXURY',
+                'description': 'هتل پنج ستاره لوکس',
+                'images': ['https://example.com/espinas-palace.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.8, 'review_count': 3200
+            },
+
+            # Additional Isfahan Province entries
+            {
+                'id': 'place_isfahan_005',
+                'title': 'کاخ چهل ستون',
+                'category': 'HISTORICAL',
+                'province': 'اصفهان',
+                'location': 'اصفهان',
+                'address': 'اصفهان، خیابان چهارباغ، کاخ چهل ستون',
+                'lat': 32.6615, 'lng': 51.6770,
+                'entry_fee': 300000,
+                'price_tier': 'BUDGET',
+                'description': 'کاخ صفوی با نقاشی‌های دیواری عالی',
+                'images': ['https://example.com/chehel-sotun.jpg'],
+                'opening_hours': {'daily': '09:00-18:00'},
+                'rating': 4.8, 'review_count': 7100
+            },
+            {
+                'id': 'place_isfahan_006',
+                'title': 'هتل عباسی',
+                'category': 'STAY',
+                'province': 'اصفهان',
+                'location': 'اصفهان',
+                'address': 'اصفهان، خیابان چهارباغ عباسی، هتل عباسی',
+                'lat': 32.6550, 'lng': 51.6740,
+                'entry_fee': 6000000,
+                'price_tier': 'LUXURY',
+                'description': 'هتل تاریخی پنج ستاره در کاروانسرای قدیمی',
+                'images': ['https://example.com/abbasi-hotel.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.9, 'review_count': 5600
+            },
+            {
+                'id': 'place_isfahan_007',
+                'title': 'باغ چهلستون',
+                'category': 'NATURAL',
+                'province': 'اصفهان',
+                'location': 'اصفهان',
+                'address': 'اصفهان، باغ چهلستون',
+                'lat': 32.6620, 'lng': 51.6765,
+                'entry_fee': 200000,
+                'price_tier': 'BUDGET',
+                'description': 'باغ ایرانی زیبا با حوض و درختان کهنسال',
+                'images': ['https://example.com/chehelsotun-garden.jpg'],
+                'opening_hours': {'daily': '08:00-19:00'},
+                'rating': 4.7, 'review_count': 6300
+            },
+
+            # Additional Fars Province entries
+            {
+                'id': 'place_fars_005',
+                'title': 'آرامگاه حافظ',
+                'category': 'CULTURAL',
+                'province': 'فارس',
+                'location': 'شیراز',
+                'address': 'فارس، شیراز، حافظیه',
+                'lat': 29.6274, 'lng': 52.5503,
+                'entry_fee': 200000,
+                'price_tier': 'BUDGET',
+                'description': 'آرامگاه شاعر بزرگ ایرانی حافظ',
+                'images': ['https://example.com/hafez-tomb.jpg'],
+                'opening_hours': {'daily': '08:00-22:00'},
+                'rating': 4.9, 'review_count': 16200
+            },
+            {
+                'id': 'place_fars_006',
+                'title': 'آرامگاه سعدی',
+                'category': 'CULTURAL',
+                'province': 'فارس',
+                'location': 'شیراز',
+                'address': 'فارس، شیراز، سعدیه',
+                'lat': 29.6040, 'lng': 52.5790,
+                'entry_fee': 150000,
+                'price_tier': 'BUDGET',
+                'description': 'آرامگاه سعدی شیرازی شاعر بنام ایرانی',
+                'images': ['https://example.com/saadi-tomb.jpg'],
+                'opening_hours': {'daily': '08:00-21:00'},
+                'rating': 4.8, 'review_count': 12400
+            },
+            {
+                'id': 'place_fars_007',
+                'title': 'قلعه کریمخانی',
+                'category': 'HISTORICAL',
+                'province': 'فارس',
+                'location': 'شیراز',
+                'address': 'فارس، شیراز، میدان شهدا، ارگ کریمخان',
+                'lat': 29.6090, 'lng': 52.5436,
+                'entry_fee': 250000,
+                'price_tier': 'BUDGET',
+                'description': 'ارگ کریمخان زند با معماری منحصر به فرد',
+                'images': ['https://example.com/karimkhan-citadel.jpg'],
+                'opening_hours': {'daily': '08:00-19:00'},
+                'rating': 4.6, 'review_count': 8900
+            },
+
+            # Additional Khorasan Razavi entries
+            {
+                'id': 'place_khorasan_005',
+                'title': 'بازار رضا',
+                'category': 'CULTURAL',
+                'province': 'خراسان رضوی',
+                'location': 'مشهد',
+                'address': 'خراسان رضوی، مشهد، بازار رضا',
+                'lat': 36.2870, 'lng': 59.6140,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'بازار سنتی و تاریخی مشهد',
+                'images': ['https://example.com/reza-bazaar.jpg'],
+                'opening_hours': {'daily': '08:00-22:00'},
+                'rating': 4.5, 'review_count': 9200
+            },
+            {
+                'id': 'place_khorasan_006',
+                'title': 'هتل درویشی',
+                'category': 'STAY',
+                'province': 'خراسان رضوی',
+                'location': 'مشهد',
+                'address': 'خراسان رضوی، مشهد، هتل درویشی',
+                'lat': 36.2900, 'lng': 59.6100,
+                'entry_fee': 5000000,
+                'price_tier': 'LUXURY',
+                'description': 'هتل پنج ستاره نزدیک حرم',
+                'images': ['https://example.com/darvishi-hotel.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.7, 'review_count': 4100
+            },
+
+            # Additional Yazd entries
+            {
+                'id': 'place_yazd_005',
+                'title': 'آتشکده یزد',
+                'category': 'RELIGIOUS',
+                'province': 'یزد',
+                'location': 'یزد',
+                'address': 'یزد، آتشکده زرتشتیان',
+                'lat': 31.8920, 'lng': 54.3680,
+                'entry_fee': 200000,
+                'price_tier': 'BUDGET',
+                'description': 'آتشکده زرتشتیان با آتش همیشه افروز',
+                'images': ['https://example.com/fire-temple.jpg'],
+                'opening_hours': {'daily': '08:00-19:00'},
+                'rating': 4.7, 'review_count': 7200
+            },
+            {
+                'id': 'place_yazd_006',
+                'title': 'مسجد جامع یزد',
+                'category': 'RELIGIOUS',
+                'province': 'یزد',
+                'location': 'یزد',
+                'address': 'یزد، میدان امام، مسجد جامع',
+                'lat': 31.8978, 'lng': 54.3615,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'مسجد با دو مناره بلند و کاشی‌کاری زیبا',
+                'images': ['https://example.com/yazd-jame-mosque.jpg'],
+                'opening_hours': {'daily': '08:00-20:00'},
+                'rating': 4.8, 'review_count': 5900
+            },
+
+            # Additional Gilan entries
+            {
+                'id': 'place_gilan_005',
+                'title': 'دریاچه سقالکسار',
+                'category': 'NATURAL',
+                'province': 'گیلان',
+                'location': 'رشت',
+                'address': 'گیلان، رشت، دریاچه سقالکسار',
+                'lat': 37.3100, 'lng': 49.5420,
+                'entry_fee': 50000,
+                'price_tier': 'BUDGET',
+                'description': 'دریاچه زیبا با پرندگان مهاجر',
+                'images': ['https://example.com/saghalaksar.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.5, 'review_count': 4200
+            },
+            {
+                'id': 'place_gilan_006',
+                'title': 'هتل کادوس',
+                'category': 'STAY',
+                'province': 'گیلان',
+                'location': 'رشت',
+                'address': 'گیلان، رشت، میدان شهرداری، هتل کادوس',
+                'lat': 37.2820, 'lng': 49.5870,
+                'entry_fee': 3000000,
+                'price_tier': 'MODERATE',
+                'description': 'هتل چهار ستاره در مرکز شهر',
+                'images': ['https://example.com/kadus-hotel.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.4, 'review_count': 2800
+            },
+
+            # Additional Khuzestan entries
+            {
+                'id': 'place_khuzestan_005',
+                'title': 'رستوران سنتی خوزستانی',
+                'category': 'DINING',
+                'province': 'خوزستان',
+                'location': 'اهواز',
+                'address': 'خوزستان، اهواز، غذای محلی',
+                'lat': 31.3250, 'lng': 48.6900,
+                'entry_fee': 0,
+                'price_tier': 'BUDGET',
+                'description': 'غذاهای سنتی عربی و خوزستانی',
+                'images': ['https://example.com/khuzestan-restaurant.jpg'],
+                'opening_hours': {'daily': '11:00-23:00'},
+                'rating': 4.3, 'review_count': 2100
+            },
+
+            # Additional East Azerbaijan entries
+            {
+                'id': 'place_azarbaijan_sh_005',
+                'title': 'کندوان',
+                'category': 'NATURAL',
+                'province': 'آذربایجان شرقی',
+                'location': 'اسکو',
+                'address': 'آذربایجان شرقی، اسکو، روستای کندوان',
+                'lat': 37.7947, 'lng': 46.2844,
+                'entry_fee': 200000,
+                'price_tier': 'BUDGET',
+                'description': 'روستای صخره‌ای با خانه‌های کندو شکل',
+                'images': ['https://example.com/kandovan.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.9, 'review_count': 8700
+            },
+            {
+                'id': 'place_azarbaijan_sh_006',
+                'title': 'موزه آذربایجان',
+                'category': 'CULTURAL',
+                'province': 'آذربایجان شرقی',
+                'location': 'تبریز',
+                'address': 'آذربایجان شرقی، تبریز، موزه آذربایجان',
+                'lat': 38.0750, 'lng': 46.2980,
+                'entry_fee': 150000,
+                'price_tier': 'BUDGET',
+                'description': 'موزه باستان‌شناسی آذربایجان',
+                'images': ['https://example.com/azarbaijan-museum.jpg'],
+                'opening_hours': {'daily': '09:00-17:00'},
+                'rating': 4.4, 'review_count': 2900
+            },
+
+            # Additional Mazandaran entries
+            {
+                'id': 'place_mazandaran_005',
+                'title': 'آبشار ویسادار',
+                'category': 'NATURAL',
+                'province': 'مازندران',
+                'location': 'نکا',
+                'address': 'مازندران، نکا، آبشار ویسادار',
+                'lat': 36.5300, 'lng': 53.2900,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'آبشار زیبا در دل جنگل',
+                'images': ['https://example.com/visadar-waterfall.jpg'],
+                'opening_hours': {'daily': '07:00-19:00'},
+                'rating': 4.7, 'review_count': 5200
+            },
+            {
+                'id': 'place_mazandaran_006',
+                'title': 'رستوران ماهی سفید',
+                'category': 'DINING',
+                'province': 'مازندران',
+                'location': 'چالوس',
+                'address': 'مازندران، چالوس، رستوران ماهی',
+                'lat': 36.6500, 'lng': 51.4250,
+                'entry_fee': 0,
+                'price_tier': 'MODERATE',
+                'description': 'رستوران ماهی تازه دریا',
+                'images': ['https://example.com/mahi-sefid.jpg'],
+                'opening_hours': {'daily': '11:00-23:00'},
+                'rating': 4.6, 'review_count': 4100
+            },
+
+            # Additional Kerman entries
+            {
+                'id': 'place_kerman_005',
+                'title': 'موزه هنر معاصر کرمان',
+                'category': 'CULTURAL',
+                'province': 'کرمان',
+                'location': 'کرمان',
+                'address': 'کرمان، خیابان شریعتی، موزه هنر',
+                'lat': 30.2850, 'lng': 57.0750,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'موزه هنرهای معاصر و سنتی',
+                'images': ['https://example.com/kerman-art-museum.jpg'],
+                'opening_hours': {'daily': '09:00-17:00'},
+                'rating': 4.3, 'review_count': 1400
+            },
+
+            # Additional Hormozgan entries
+            {
+                'id': 'place_hormozgan_005',
+                'title': 'جزیره هرمز',
+                'category': 'NATURAL',
+                'province': 'هرمزگان',
+                'location': 'بندرعباس',
+                'address': 'هرمزگان، جزیره هرمز',
+                'lat': 27.0600, 'lng': 56.4700,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'جزیره رنگین کمانی با خاک‌های رنگی',
+                'images': ['https://example.com/hormoz-island.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.8, 'review_count': 6800
+            },
+            {
+                'id': 'place_hormozgan_006',
+                'title': 'غار نمکدان',
+                'category': 'NATURAL',
+                'province': 'هرمزگان',
+                'location': 'قشم',
+                'address': 'هرمزگان، قشم، غار نمکی',
+                'lat': 26.8600, 'lng': 55.9800,
+                'entry_fee': 150000,
+                'price_tier': 'BUDGET',
+                'description': 'بلندترین غار نمکی جهان',
+                'images': ['https://example.com/namakdan-cave.jpg'],
+                'opening_hours': {'daily': '08:00-18:00'},
+                'rating': 4.9, 'review_count': 5400
+            },
+
+            # Additional Sistan and Baluchestan entries
+            {
+                'id': 'place_sistan_005',
+                'title': 'کوه خواجه',
+                'category': 'HISTORICAL',
+                'province': 'سیستان و بلوچستان',
+                'location': 'زابل',
+                'address': 'سیستان و بلوچستان، زابل، کوه خواجه',
+                'lat': 30.9067, 'lng': 61.5783,
+                'entry_fee': 150000,
+                'price_tier': 'BUDGET',
+                'description': 'کوه آتشفشانی با آثار باستانی',
+                'images': ['https://example.com/khajeh-mountain.jpg'],
+                'opening_hours': {'daily': '08:00-18:00'},
+                'rating': 4.5, 'review_count': 2100
+            },
+
+            # Additional Lorestan entries
+            {
+                'id': 'place_lorestan_005',
+                'title': 'دریاچه کیو',
+                'category': 'NATURAL',
+                'province': 'لرستان',
+                'location': 'خرم‌آباد',
+                'address': 'لرستان، خرم‌آباد، دریاچه کیو',
+                'lat': 33.5200, 'lng': 48.3100,
+                'entry_fee': 50000,
+                'price_tier': 'BUDGET',
+                'description': 'دریاچه کوهستانی زیبا',
+                'images': ['https://example.com/kiu-lake.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.6, 'review_count': 3800
+            },
+
+            # Additional Bushehr entries
+            {
+                'id': 'place_bushehr_005',
+                'title': 'کلیسای حضرت مریم',
+                'category': 'RELIGIOUS',
+                'province': 'بوشهر',
+                'location': 'بوشهر',
+                'address': 'بوشهر، کلیسای حضرت مریم',
+                'lat': 28.9670, 'lng': 50.8370,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'کلیسای تاریخی ارامنه',
+                'images': ['https://example.com/mary-church-bushehr.jpg'],
+                'opening_hours': {'daily': '08:00-17:00'},
+                'rating': 4.3, 'review_count': 1200
+            },
+
+            # Additional Zanjan entries
+            {
+                'id': 'place_zanjan_005',
+                'title': 'آبشار گزو',
+                'category': 'NATURAL',
+                'province': 'زنجان',
+                'location': 'ماهنشان',
+                'address': 'زنجان، ماهنشان، آبشار گزو',
+                'lat': 36.7800, 'lng': 47.7100,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'آبشار زیبا در کوهستان',
+                'images': ['https://example.com/gezo-waterfall.jpg'],
+                'opening_hours': {'daily': '07:00-19:00'},
+                'rating': 4.6, 'review_count': 2400
+            },
+
+            # Additional Semnan entries
+            {
+                'id': 'place_semnan_005',
+                'title': 'دریاچه نمک',
+                'category': 'NATURAL',
+                'province': 'سمنان',
+                'location': 'گرمسار',
+                'address': 'سمنان، گرمسار، دریاچه نمک',
+                'lat': 34.8400, 'lng': 52.1200,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'دریاچه نمک بزرگ ایران',
+                'images': ['https://example.com/namak-lake.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.7, 'review_count': 4600
+            },
+
+            # Additional Qazvin entries
+            {
+                'id': 'place_qazvin_005',
+                'title': 'مسجد جامع قزوین',
+                'category': 'RELIGIOUS',
+                'province': 'قزوین',
+                'location': 'قزوین',
+                'address': 'قزوین، میدان سعدی، مسجد جامع',
+                'lat': 36.2750, 'lng': 50.0030,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'مسجد تاریخی با معماری سلجوقی',
+                'images': ['https://example.com/qazvin-jame-mosque.jpg'],
+                'opening_hours': {'daily': '05:00-22:00'},
+                'rating': 4.5, 'review_count': 2200
+            },
+
+            # Additional Qom entries
+            {
+                'id': 'place_qom_005',
+                'title': 'موزه فیض',
+                'category': 'CULTURAL',
+                'province': 'قم',
+                'location': 'قم',
+                'address': 'قم، کوچه فیض، خانه تاریخی فیض',
+                'lat': 34.6450, 'lng': 50.8750,
+                'entry_fee': 50000,
+                'price_tier': 'BUDGET',
+                'description': 'خانه تاریخی با معماری قاجار',
+                'images': ['https://example.com/feiz-museum.jpg'],
+                'opening_hours': {'daily': '09:00-17:00'},
+                'rating': 4.4, 'review_count': 1800
+            },
+
+            # Additional Hamedan entries
+            {
+                'id': 'place_hamedan_005',
+                'title': 'آرامگاه باباطاهر',
+                'category': 'CULTURAL',
+                'province': 'همدان',
+                'location': 'همدان',
+                'address': 'همدان، پارک باباطاهر',
+                'lat': 34.7920, 'lng': 48.5200,
+                'entry_fee': 50000,
+                'price_tier': 'BUDGET',
+                'description': 'آرامگاه شاعر عارف همدانی',
+                'images': ['https://example.com/babataher-tomb.jpg'],
+                'opening_hours': {'daily': '08:00-20:00'},
+                'rating': 4.6, 'review_count': 5200
+            },
+
+            # Additional Markazi entries
+            {
+                'id': 'place_markazi_005',
+                'title': 'موزه باستان‌شناسی اراک',
+                'category': 'CULTURAL',
+                'province': 'مرکزی',
+                'location': 'اراک',
+                'address': 'مرکزی، اراک، موزه باستان‌شناسی',
+                'lat': 34.0930, 'lng': 49.6880,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'موزه با آثار باستانی منطقه',
+                'images': ['https://example.com/arak-museum.jpg'],
+                'opening_hours': {'daily': '09:00-17:00'},
+                'rating': 4.2, 'review_count': 1200
+            },
+
+            # Additional Ilam entries
+            {
+                'id': 'place_ilam_005',
+                'title': 'دریاچه سد سیمره',
+                'category': 'NATURAL',
+                'province': 'ایلام',
+                'location': 'ایلام',
+                'address': 'ایلام، دریاچه سیمره',
+                'lat': 33.5400, 'lng': 47.0200,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'دریاچه سد با منظره کوهستانی',
+                'images': ['https://example.com/simreh-dam.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.5, 'review_count': 2200
+            },
+
+            # Additional Kohgiluyeh entries
+            {
+                'id': 'place_kohgiluyeh_005',
+                'title': 'چشمه دیمه',
+                'category': 'NATURAL',
+                'province': 'کهگیلویه و بویراحمد',
+                'location': 'یاسوج',
+                'address': 'کهگیلویه و بویراحمد، یاسوج، چشمه دیمه',
+                'lat': 30.6500, 'lng': 51.6200,
+                'entry_fee': 50000,
+                'price_tier': 'BUDGET',
+                'description': 'چشمه طبیعی با آب گوارا',
+                'images': ['https://example.com/dimeh-spring.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.4, 'review_count': 1900
+            },
+
+            # Additional Chaharmahal entries
+            {
+                'id': 'place_chaharmahal_005',
+                'title': 'دریاچه سد زاینده‌رود',
+                'category': 'NATURAL',
+                'province': 'چهارمحال و بختیاری',
+                'location': 'شهرکرد',
+                'address': 'چهارمحال و بختیاری، سد زاینده‌رود',
+                'lat': 32.4800, 'lng': 50.4500,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'دریاچه سد بزرگ با منظره زیبا',
+                'images': ['https://example.com/zayandeh-dam.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.5, 'review_count': 2600
+            },
+
+            # Additional Kurdistan entries
+            {
+                'id': 'place_kurdistan_005',
+                'title': 'آبشار نوژیان',
+                'category': 'NATURAL',
+                'province': 'کردستان',
+                'location': 'مریوان',
+                'address': 'کردستان، مریوان، آبشار نوژیان',
+                'lat': 35.4800, 'lng': 46.4200,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'آبشار زیبا در جنگل',
+                'images': ['https://example.com/nojian-waterfall.jpg'],
+                'opening_hours': {'daily': '07:00-19:00'},
+                'rating': 4.7, 'review_count': 2900
+            },
+
+            # Additional Kermanshah entries
+            {
+                'id': 'place_kermanshah_005',
+                'title': 'رستوران سنتی دنج',
+                'category': 'DINING',
+                'province': 'کرمانشاه',
+                'location': 'کرمانشاه',
+                'address': 'کرمانشاه، خیابان شریعتی، رستوران سنتی',
+                'lat': 34.3150, 'lng': 47.0650,
+                'entry_fee': 0,
+                'price_tier': 'BUDGET',
+                'description': 'غذاهای کرمانشاهی اصیل',
+                'images': ['https://example.com/kermanshah-restaurant.jpg'],
+                'opening_hours': {'daily': '11:00-23:00'},
+                'rating': 4.5, 'review_count': 2800
+            },
+
+            # Additional Ardabil entries
+            {
+                'id': 'place_ardabil_005',
+                'title': 'دریاچه شورابیل',
+                'category': 'NATURAL',
+                'province': 'اردبیل',
+                'location': 'اردبیل',
+                'address': 'اردبیل، دریاچه شورابیل',
+                'lat': 38.2400, 'lng': 48.2850,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'دریاچه زیبا در شهر اردبیل',
+                'images': ['https://example.com/shorabil-lake.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.5, 'review_count': 5100
+            },
+
+            # Additional West Azerbaijan entries
+            {
+                'id': 'place_azarbaijan_west_005',
+                'title': 'دریاچه قره‌گل',
+                'category': 'NATURAL',
+                'province': 'آذربایجان غربی',
+                'location': 'ماکو',
+                'address': 'آذربایجان غربی، ماکو، دریاچه قره‌گل',
+                'lat': 39.3200, 'lng': 44.5100,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'دریاچه کوهستانی زیبا',
+                'images': ['https://example.com/gharehgol-lake.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.6, 'review_count': 2400
+            },
+
+            # Additional Golestan entries
+            {
+                'id': 'place_golestan_005',
+                'title': 'آبشار زیارت',
+                'category': 'NATURAL',
+                'province': 'گلستان',
+                'location': 'گرگان',
+                'address': 'گلستان، گرگان، آبشار زیارت',
+                'lat': 36.8800, 'lng': 54.5200,
+                'entry_fee': 100000,
+                'price_tier': 'BUDGET',
+                'description': 'آبشار معروف در جنگل',
+                'images': ['https://example.com/ziarat-waterfall-golestan.jpg'],
+                'opening_hours': {'daily': '07:00-19:00'},
+                'rating': 4.7, 'review_count': 4800
+            },
+
+            # Additional Alborz entries
+            {
+                'id': 'place_alborz_005',
+                'title': 'سد امیرکبیر',
+                'category': 'NATURAL',
+                'province': 'البرز',
+                'location': 'کرج',
+                'address': 'البرز، کرج، سد امیرکبیر',
+                'lat': 35.9500, 'lng': 51.1900,
+                'entry_fee': 50000,
+                'price_tier': 'BUDGET',
+                'description': 'دریاچه سد با منظره کوهستانی',
+                'images': ['https://example.com/amirkabir-dam.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.6, 'review_count': 6200
+            },
+
+            # Additional North Khorasan entries
+            {
+                'id': 'place_khorasan_north_005',
+                'title': 'دریاچه آلاگل',
+                'category': 'NATURAL',
+                'province': 'خراسان شمالی',
+                'location': 'شیروان',
+                'address': 'خراسان شمالی، شیروان، دریاچه آلاگل',
+                'lat': 37.4200, 'lng': 58.0800,
+                'entry_fee': 0,
+                'price_tier': 'FREE',
+                'description': 'دریاچه با پرندگان مهاجر',
+                'images': ['https://example.com/alagol-lake.jpg'],
+                'opening_hours': {'24/7': True},
+                'rating': 4.4, 'review_count': 1900
+            },
+
+            # Additional South Khorasan entries
+            {
+                'id': 'place_khorasan_south_005',
+                'title': 'کاروانسرای عین‌الرشید',
+                'category': 'HISTORICAL',
+                'province': 'خراسان جنوبی',
+                'location': 'بیرجند',
+                'address': 'خراسان جنوبی، بیرجند، کاروانسرا',
+                'lat': 32.8500, 'lng': 59.1800,
+                'entry_fee': 50000,
+                'price_tier': 'BUDGET',
+                'description': 'کاروانسرای تاریخی صفوی',
+                'images': ['https://example.com/eynolrashid.jpg'],
+                'opening_hours': {'daily': '08:00-18:00'},
+                'rating': 4.3, 'review_count': 1100
             },
         ]
 

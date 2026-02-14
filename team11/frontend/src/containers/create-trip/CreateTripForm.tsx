@@ -10,6 +10,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { tripApi } from '@/services/api';
 import { useNotification } from '@/contexts/NotificationContext';
 import { CreateTripPayload, TripStyle, BudgetLevel, TripDensity } from '@/types/trip';
+import { error } from 'console';
+import { AxiosError, AxiosResponse, AxiosResponseHeaders } from 'axios';
 
 const PROVINCES = Object.values(PROVINCES_DETAILS).map((prov) => ({ value: prov.province, label: prov.name }));
 
@@ -131,13 +133,20 @@ const CreateTripForm = () => {
       };
 
       // Build payload based on mode
+      // Convert city value to Persian label
+      let cityLabel: string | null = null;
+      if (formData.city && formData.province) {
+        const cityOption = CITIES_MAP[formData.province]?.find(c => c.value === formData.city);
+        cityLabel = cityOption?.label || null;
+      }
+
       const payload: CreateTripPayload = {
-        province: formData.province,
-        city: formData.city || '', // Ensure city is a string
-        startDate: startDate, // camelCase for API request
-        endDate: endDate,
+        province: PROVINCES_DETAILS[formData.province].name,
+        city: cityLabel, // Send Persian city name
+        start_date: startDate, // camelCase for API request
+        end_date: endDate,
         style: null,
-        budget_level: null
+        budget_level: 'MEDIUM'
       };
 
       // Add advanced fields only in pro mode
@@ -153,16 +162,16 @@ const CreateTripForm = () => {
         }
       }
 
-      console.log('Creating trip with payload:', payload);
 
       // Call API
       const response = await tripApi.create(payload);
-      const trip = response.data;
-      success('سفر با موفقیت ایجاد شد');
+      const trip = response.data.trip; // API returns {success, message, message_fa, trip}
+      success(response.data.message_fa || 'سفر با موفقیت ایجاد شد');
       navigate(`/trip-details/${trip.id}`);
-    } catch (err: any) {
-      console.error('Failed to create trip:', err);
-      showError('خطا در ایجاد سفر. لطفاً دوباره تلاش کنید.');
+    } catch (err) {
+      const axiosError = err as AxiosError;
+      const errorData = axiosError?.response?.data as { error_fa?: string } | undefined;
+      showError(errorData?.error_fa || 'خطا در ایجاد سفر. لطفاً دوباره تلاش کنید.');
     } finally {
       setIsCreating(false);
     }
@@ -201,6 +210,10 @@ const CreateTripForm = () => {
             setFormData({ ...formData, startDate: date })
             if (formData?.endDate?.isBefore(date, 'day'))
               setFormData(prev => ({ ...prev, endDate: null }))
+          }}
+          disabledDates={(current) => {
+            if (!current) return false;
+            return current.isBefore(new Date(), 'day');
           }}
         />
         <DatePicker

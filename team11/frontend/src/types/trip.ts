@@ -3,7 +3,7 @@ export type TripDensity = 'RELAXED' | 'BALANCED' | 'INTENSIVE';
 export type BudgetLevel = 'ECONOMY' | 'MEDIUM' | 'LUXURY';
 export type TripStatus = 'ACTIVE' | 'COMPLETED' | 'CANCELLED';
 export type ItemType = 'VISIT' | 'FOOD' | 'STAY' | 'TRANSPORT' | 'ACTIVITY';
-export type CategoryType = 'HISTORICAL' | 'SHOPPING' | 'RECREATIONAL' | 'RELIGIOUS' | 'NATURAL' | 'DINING' | 'STUDY' | 'EVENTS';
+export type CategoryType = 'HISTORICAL' | 'SHOPPING' | 'RECREATIONAL' | 'RELIGIOUS' | 'NATURAL' | 'DINING' | 'STUDY' | 'EVENTS' | 'CULTURAL' | 'STAY' ;
 
 export interface TripItem {
   id: number; // Changed to number as per API
@@ -29,7 +29,7 @@ export interface Trip {
   id: number; // Changed to number as per API
   title: string;
   province: string;
-  city: string;
+  city: string | null; // City can be null
   start_date: string; // snake_case for API response
   end_date: string; // snake_case for API response
   duration_days: number;
@@ -37,7 +37,7 @@ export interface Trip {
   budget_level: BudgetLevel;
   density?: TripDensity; // Optional field
   interests?: CategoryType[]; // Optional field
-  status: TripStatus; // Default is ACTIVE
+  status: string; // API returns 'FINALIZED', 'DRAFT', etc.
   total_cost: number; // Float in API response
   days: TripDay[];
   created_at: string; // snake_case for API response
@@ -46,9 +46,9 @@ export interface Trip {
 // API Payloads
 export interface CreateTripPayload {
   province: string;
-  city: string;
-  startDate: string; // camelCase for API request
-  endDate?: string; // Optional field, camelCase for API request
+  city?: string | null;
+  start_date: string; // camelCase for API request
+  end_date?: string; // Optional field, camelCase for API request
   style: TripStyle | null;
   density?: TripDensity; // Optional field
   interests?: CategoryType[]; // Optional field
@@ -58,6 +58,7 @@ export interface CreateTripPayload {
 export interface UpdateTripPayload {
   budget_level?: BudgetLevel;
   density?: TripDensity; // Optional field
+  title?: string; // Optional field for updating trip title
 }
 
 export interface UpdateTripItemPayload {
@@ -139,10 +140,10 @@ export interface TripHistoryItem {
   id: number;
   title: string;
   province: string;
-  city: string;
+  city: string | null;
   start_date: string;
   end_date: string;
-  style: string;
+  travel_style: string;
   density?: string;
   budget_level: string;
   interests?: string[];
